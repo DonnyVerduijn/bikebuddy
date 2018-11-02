@@ -75,9 +75,6 @@ typings/
 # FuseBox cache
 .fusebox/
 
-# generated lockfile
-package-lock.json
-
 #local_resources folder
 local_resources
 
