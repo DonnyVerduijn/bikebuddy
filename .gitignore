@@ -75,11 +75,15 @@ typings/
 # FuseBox cache
 .fusebox/
 
-www
-
-
+# generated lockfile
 package-lock.json
 
+#local_resources folder
+local_resources
+
+# cordova folders
 plugins
 platforms
 hooks
+www
+

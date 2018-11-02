@@ -1,5 +1,6 @@
 {
     "files.exclude": {
+        "**/local_resources": true,
         "**/node_modules": true
     }
 }
