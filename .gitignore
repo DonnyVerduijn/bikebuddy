@@ -77,4 +77,9 @@ typings/
 
 www
 
+
 package-lock.json
+
+plugins
+platforms
+hooks
