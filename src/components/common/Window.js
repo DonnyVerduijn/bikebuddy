@@ -12,17 +12,27 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     zIndex: 100,
-    transition: 'opacity .25s ease-in-out',
-    mozTransition: 'opacity .25s ease-in-out',
-    webkitTransition: 'opacity .25s ease-in-out',
+    transition: 'left .25s ease-in-out',
     // animationName: fadeIn,
     // animationDuration: '.5s',
     backgroundColor: 'rgba(235, 235, 237, 1)',
   },
+  isMenuVisible: {
+    left: '15em',
+  },
 });
 
 const Window = props => {
-  return <div className={css(styles.Window)}>{props.children}</div>;
+  console.log(props);
+  return (
+    <div
+      className={`${css(styles.Window)} ${
+        props.isMenuVisible && css(styles.isMenuVisible)
+      }`}
+    >
+      {props.children}
+    </div>
+  );
 };
 
 Window.propTypes = {
@@ -30,6 +40,7 @@ Window.propTypes = {
     PropTypes.element,
     PropTypes.arrayOf(PropTypes.element),
   ]),
+  isMenuVisible: PropTypes.bool,
 };
 
 export default Window;

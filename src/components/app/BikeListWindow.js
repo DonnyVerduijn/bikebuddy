@@ -1,28 +1,36 @@
-import React from 'react';
-import Window from '../common/Window';
+import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
+import Window from './../common/Window';
 import BikeListContainer from './../containers/BikeListContainer';
-import StoreBikeButtonContainer from '../containers/StoreBikeButtonContainer';
-// import BikeListNavigationContainer from '../containers/BikeListNavigationContainer';
-// import BottomMenuContainer from './../containers/BottomMenuContainer';
-// import Icon from './../common/Icon';
+import StoreBikeButtonContainer from './../containers/StoreBikeButtonContainer';
+import SideNavigationMenuContainer from './../containers/SideNavigationMenuContainer';
+import BikeListNavigationBarContainer from './../containers/BikeListNavigationBarContainer';
+import { StyleSheet, css } from 'aphrodite/no-important';
 
-// const createIcon = (parentProps) => childProps => {
-//     const props = Object.assign({}, parentProps, childProps);
-//     return <Icon {...props}></Icon>;
-// };
+const styles = StyleSheet.create({
+  isMenuVisible: {
+    transition: 'left .25s ease-in-out',
+    left: '0',
+  }
+});
 
-const BikeListWindow = () => {
+const BikeListWindow = props => {
+  console.log(props);
   return (
-    <Window>
-      {/* <BikeListNavigationContainer
-        title="Bikelocator"
-        leftIcon={createIcon({ type: 'menu', onClick: toggleMenu })}
-      /> */}
-      <BikeListContainer />
-      <StoreBikeButtonContainer />
-      {/* <BottomMenuContainer /> */}
-    </Window>
+    <Fragment>
+      <SideNavigationMenuContainer {...props} />
+      <Window className={props.isMenuVisible ? css(styles.isMenuVisible) : ''} {...props}>
+        <BikeListNavigationBarContainer {...props} />
+        <BikeListContainer />
+        <StoreBikeButtonContainer />
+      </Window>
+    </Fragment>
   );
+};
+
+BikeListWindow.propTypes = {
+  isMenuVisible: PropTypes.bool,
+  setIsMenuVisible: PropTypes.func,
 };
 
 export default BikeListWindow;

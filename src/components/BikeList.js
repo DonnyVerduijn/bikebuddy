@@ -5,10 +5,10 @@ import List from './common/List';
 import BikeListItemContainer from './containers/BikeListItemContainer';
 
 // const styles = StyleSheet.create({
-//     BikeList: {
+//     List: {
 
 //     }
-// })
+// });
 
 const BikeList = ({ bikeIds, showBike, navigateBike }) => {
   return (
@@ -26,6 +26,7 @@ const BikeList = ({ bikeIds, showBike, navigateBike }) => {
 };
 
 BikeList.propTypes = {
+  // isMenuVisible: PropTypes.bool,
   bikeIds: PropTypes.arrayOf(PropTypes.string),
   showBike: PropTypes.func,
   navigateBike: PropTypes.func,

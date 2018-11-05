@@ -4,8 +4,8 @@ import { StyleSheet, css } from 'aphrodite/no-important';
 import ListItem from './common/ListItem';
 import Icon from './common/Icon';
 import Text from './common/Text';
-import HorizontalGroup from './common/HorizontalGroup';
-import VerticalGroup from './common/VerticalGroup';
+import HorizontalGroup from './common/wrappers/HorizontalGroup';
+import VerticalGroup from './common/wrappers/VerticalGroup';
 // import { bounce } from 'react-animations';
 
 const style = {

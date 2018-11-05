@@ -9,12 +9,16 @@ import distanceFormatter from './../../util/DistanceFormatter';
 import moment from 'moment';
 
 const isNearbyTreshold = 10;
+const addressPlaceholder = 'resolving address...';
 
 const mapStateToProps = (state, ownProps) => {
   const userLocation = globalSelectors.getDeviceLocation(state);
   const bike = bikeSelectors.getById(state, ownProps.bikeId);
   const bikeLocation = locationSelectors.getById(state, bike.locationIds[0]);
-  const bikeAddress = bikeLocation ? bikeLocation.address : '';
+  const bikeAddress = 
+    bikeLocation && bikeLocation.address
+      ? bikeLocation.address
+      : addressPlaceholder;
   const distance = distanceFormatter.format(
     geoService.getDistance(userLocation, bikeLocation),
   );

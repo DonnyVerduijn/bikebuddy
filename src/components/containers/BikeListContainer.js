@@ -4,10 +4,10 @@ import { withRouter } from 'react-router-dom';
 import BikeList from './../BikeList';
 import bikeSelectors from './../../selectors/BikeSelectors';
 
-const mapStateToProps = state => {
-  const bikeIds = bikeSelectors.getIds(state);
+const mapStateToProps = (state, ownProps) => {
   return {
-    bikeIds,
+    bikeIds: bikeSelectors.getIds(state),
+    isMenuVisible: ownProps.isMenuVisible,
   };
 };
 

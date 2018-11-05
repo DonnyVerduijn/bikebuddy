@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, css } from 'aphrodite/no-important';
-import HorizontalGroup from './common/HorizontalGroup';
-// import Icon from './common/Icon';
-import Text from './common/Text';
+import HorizontalGroup from './wrappers/HorizontalGroup';
 
 const styles = StyleSheet.create({
   NavigationBar: {
@@ -33,12 +31,12 @@ const styles = StyleSheet.create({
   },
 });
 
-const NavigationBar = ({ title, leftIcon, rightIcon }) => {
+const NavigationBar = ({ className, title, leftIcon, rightIcon }) => {
   return (
-    <div className={css(styles.NavigationBar)}>
+    <div className={`${css(styles.NavigationBar)} ${className || ''}`}>
       <HorizontalGroup className={css(styles.HorizontalGroup)}>
         {leftIcon && leftIcon({ className: css(styles.Icon) })}
-        <Text className={css(styles.PageTitle)}>{title}</Text>
+        {title && title({ className: css(styles.PageTitle) })}
       </HorizontalGroup>
       {rightIcon && rightIcon({ className: css(styles.Icon) })}
     </div>
@@ -46,7 +44,8 @@ const NavigationBar = ({ title, leftIcon, rightIcon }) => {
 };
 
 NavigationBar.propTypes = {
-  title: PropTypes.string,
+  className: PropTypes.string,
+  title: PropTypes.func,
   leftIcon: PropTypes.func,
   rightIcon: PropTypes.func,
 };
