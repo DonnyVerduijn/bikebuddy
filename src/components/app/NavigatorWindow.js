@@ -6,7 +6,6 @@ import DirectionArrowContainer from '../containers/DirectionArrowContainer';
 import NavigatorButtonGroupContainer from './../containers/NavigatorButtonGroupContainer';
 
 const NavigatorWindow = ({ match }) => {
-  console.log(match.params.id);
   return (
     <Window>
       <DistanceToTargetContainer bikeId={match.params.id} />

@@ -14,8 +14,6 @@ const convertOrientation = orientation => {
 };
 
 const mapStateToProps = (state, { bikeId }) => {
-  // console.log(state);
-  // console.log(bikeId);
   const deviceOrientation = getDeviceOrientation(state);
   const bike = bikeSelectors.getById(state, bikeId);
   const rhumbLineBearing = createSelector(

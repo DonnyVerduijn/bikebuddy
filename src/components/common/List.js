@@ -12,11 +12,10 @@ const styles = StyleSheet.create({
 });
 
 const List = props => {
-  return (
-    <ul className={`${css(styles.List)} ${props.className}`}>
-      {props.children}
-    </ul>
-  );
+  const className = `${props.className ? props.className : ''} ${css(
+    styles.List,
+  )} `;
+  return <ul className={className}>{props.children}</ul>;
 };
 
 List.propTypes = {

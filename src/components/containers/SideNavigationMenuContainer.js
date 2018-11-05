@@ -3,8 +3,8 @@ import SideNavigationMenu from './../SideNavigationMenu';
 import { compose, withHandlers } from 'recompose';
 import { withRouter } from 'react-router';
 
-const mapStateToProps = (state, { isMenuVisible }) => ({
-    isMenuVisible
+const mapStateToProps = (state, { isOpen }) => ({
+    isOpen
 });
 
 const attachHandlers = compose(

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Window from '../common/Window';
 
 const BikeMapWindow = ({ match }) => {
-  console.log(match);
   return (
     <Window>
       <h1>MapWindow</h1>

@@ -24,7 +24,7 @@ const mapStateToProps = (state, ownProps) => {
   );
   const isNearby = distance && distance < isNearbyTreshold ? true : false;
   const timeAgo = bikeLocation ? moment(bikeLocation.timestamp).fromNow() : '';
-  console.log('BikeListItemContainer', timeAgo);
+
   return {
     bike: {
       name: bike.name,

@@ -5,7 +5,6 @@ import BottomMenu from './../BottomMenu';
 import globalSelectors from './../../selectors/GlobalSelectors';
 
 const mapStateToProps = (state) => {
-    console.log(state);
     return { userId: globalSelectors.getLocalUserId(state) };
 };
 

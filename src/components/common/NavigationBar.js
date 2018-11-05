@@ -10,6 +10,8 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     background: 'rgb(0, 0, 0)',
+    width: '100%',
+    boxSizing: 'border-box',
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
@@ -19,7 +21,7 @@ const styles = StyleSheet.create({
   Icon: {
     width: '1.25em !important',
     height: '1.25em !important',
-    margin: '1.1em 1.5em',
+    margin: '1.1em 1.25em',
   },
   PageTitle: {
     color: 'rgb(255,255,255)',

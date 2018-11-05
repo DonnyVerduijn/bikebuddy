@@ -5,22 +5,13 @@ import BikeListContainer from './../containers/BikeListContainer';
 import StoreBikeButtonContainer from './../containers/StoreBikeButtonContainer';
 import SideNavigationMenuContainer from './../containers/SideNavigationMenuContainer';
 import BikeListNavigationBarContainer from './../containers/BikeListNavigationBarContainer';
-import { StyleSheet, css } from 'aphrodite/no-important';
 
-const styles = StyleSheet.create({
-  isMenuVisible: {
-    transition: 'left .25s ease-in-out',
-    left: '0',
-  }
-});
-
-const BikeListWindow = props => {
-  console.log(props);
+const BikeListWindow = ({ isMenuOpen, openMenu, closeMenu }) => {
   return (
     <Fragment>
-      <SideNavigationMenuContainer {...props} />
-      <Window className={props.isMenuVisible ? css(styles.isMenuVisible) : ''} {...props}>
-        <BikeListNavigationBarContainer {...props} />
+      <SideNavigationMenuContainer isOpen={isMenuOpen} />
+      <Window onClick={closeMenu} isDimmed={isMenuOpen}>
+        <BikeListNavigationBarContainer onMenuIconClick={openMenu} />
         <BikeListContainer />
         <StoreBikeButtonContainer />
       </Window>
@@ -29,8 +20,9 @@ const BikeListWindow = props => {
 };
 
 BikeListWindow.propTypes = {
-  isMenuVisible: PropTypes.bool,
-  setIsMenuVisible: PropTypes.func,
+  isMenuOpen: PropTypes.bool,
+  openMenu: PropTypes.func,
+  closeMenu: PropTypes.func,
 };
 
 export default BikeListWindow;
