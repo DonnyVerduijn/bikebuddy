@@ -5,7 +5,7 @@ import ReduxStore from './util/ReduxStore';
 import LocalStorage from './util/LocalStorage';
 import PositionSensor from './util/PositionSensor';
 import MagneticSensor from './util/MagneticSensor';
-import TouchScreenSensor from './util/TouchScreenSensor';
+// import TouchScreenSensor from './util/TouchScreenSensor';
 import userActions from './actions/UserActions';
 import globalSelectors from './selectors/GlobalSelectors';
 import globalActions from './actions/GlobalActions';
@@ -22,7 +22,7 @@ const CordovaApp = () => {
     const localStorage = LocalStorage({ identifier: 'bikelocator' });
     const magneticSensor = MagneticSensor();
     const positionSensor = PositionSensor({ interval: 1000 });
-    const touchScreenSensor = TouchScreenSensor(root);
+    // const touchScreenSensor = TouchScreenSensor(root);
 
     // attach callbacks to sensors
     positionSensor.listen(location => {
@@ -33,17 +33,9 @@ const CordovaApp = () => {
       store.dispatch(globalActions.setDeviceOrientation(orientation));
     });
 
-    touchScreenSensor.on('panstart', (event) => {
-      console.log('panstart', event);
-    });
-   
-    touchScreenSensor.on('panmove', () => {
-      console.log(event);
-    });
-
-    touchScreenSensor.on('panend', (event) => {
-      console.log(event);
-    });
+    // touchScreenSensor.on('pan', (event) => {
+    //   console.log('hammer event', event.type, event.additionalEvent, event);
+    // });
 
     // fetch from localStorage
     store.dispatch(

@@ -9,6 +9,8 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     zIndex: 100,
+    boxSizing: 'border-box',
+    paddingTop: '3.5em',
     transitionProperty: 'opacity',
     transitionDuration: '.25s',
     transitionTimingFunction: 'linear',

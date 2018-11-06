@@ -13,6 +13,7 @@ const ListItem = props => {
   return (
     <li className={`${css(styles.ListItem)} ${props.className}`} onClick={props.onClick}>
       {props.children}
+      {props.text}
     </li>
   );
 };
@@ -21,6 +22,11 @@ ListItem.propTypes = {
   children: PropTypes.any,
   className: PropTypes.string,
   onClick: PropTypes.func,
+  text: PropTypes.string,
+};
+
+ListItem.defaultProps = {
+  text: null,
 };
 
 export default ListItem;

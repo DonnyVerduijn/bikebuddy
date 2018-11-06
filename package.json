@@ -19,6 +19,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@google/maps": "^0.5.5",
+    "@reactivex/rxjs": "^6.3.3",
     "aphrodite": "^2.2.3",
     "cordova-android": "^7.1.1",
     "cordova-browser": "^5.0.4",
@@ -44,7 +45,6 @@
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
-    "rxjs": "^6.3.3",
     "save-dev": "^2.0.0",
     "uuidv4": "^2.0.0"
   },

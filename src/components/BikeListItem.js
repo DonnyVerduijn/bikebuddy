@@ -69,9 +69,9 @@ const styles = StyleSheet.create(style);
 
 const BikeListItem = ({ bike, showBike, navigateBike }) => {
   return (
-    <ListItem className={css(styles.BikeListItem)} onClick={showBike}>
+    <ListItem className={css(styles.BikeListItem)}>
       <Icon type="bike" style={style.BikeIcon} />
-      <VerticalGroup className={css(styles.VerticalGroup)}>
+      <VerticalGroup className={css(styles.VerticalGroup)} onClick={showBike}>
         <HorizontalGroup className={css(styles.HorizontalGroup)}>
           <Text className={css(styles.Title)}>{bike.name}</Text>
           <Text className={css(styles.Distance)}>{bike.distance}</Text>
@@ -84,10 +84,7 @@ const BikeListItem = ({ bike, showBike, navigateBike }) => {
         wrapperClassName={css(styles.NavigateIconWrapper)}
         style={style.NavigateIcon}
         type="navigate"
-        onClick={e => {
-          e.stopPropagation();
-          navigateBike();
-        }}
+        onClick={navigateBike}
       />
     </ListItem>
   );

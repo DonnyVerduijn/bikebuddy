@@ -14,6 +14,7 @@ const VerticalGroup = props => {
     <div
       className={`${css(styles.VerticalGroup)} ${props.className}`}
       style={props.style}
+      onClick={props.onClick}
     >
       {props.children}
     </div>
@@ -24,6 +25,7 @@ VerticalGroup.propTypes = {
   children: PropTypes.any,
   style: PropTypes.object,
   className: PropTypes.string,
+  onClick: PropTypes.func,
 };
 
 export default VerticalGroup;

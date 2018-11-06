@@ -4,20 +4,19 @@ import { withRouter } from 'react-router-dom';
 import BikeList from './../BikeList';
 import bikeSelectors from './../../selectors/BikeSelectors';
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
   return {
     bikeIds: bikeSelectors.getIds(state),
-    isMenuVisible: ownProps.isMenuVisible,
   };
 };
 
 const attachHandlers = compose(
   withHandlers({
-    showBike: ({ history }) => bikeId => {
-      history.push(`/bike/${bikeId}`);
+    showBike: ({ ignoreHandlers, history }) => bikeId => {
+      !ignoreHandlers && history.push(`/bike/${bikeId}`);
     },
-    navigateBike: ({ history }) => bikeId => {
-      history.push(`/bike/navigator/${bikeId}`);
+    navigateBike: ({ ignoreHandlers, history }) => bikeId => {
+      !ignoreHandlers && history.push(`/bike/navigator/${bikeId}`);
     },
   }),
 );
