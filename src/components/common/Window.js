@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
 const Window = props => {
   const className = `${css(styles.Window)} ${
     props.isDimmed ? css(styles.Dimmed) : ''
-  }`;
+  } ${props.className ? props.className : ''}`;
   return (
     <div className={className} onClick={props.onClick}>
       {props.children}
@@ -40,6 +40,7 @@ Window.propTypes = {
   ]),
   isDimmed: PropTypes.bool,
   onClick: PropTypes.func,
+  className: PropTypes.string,
 };
 
 Window.defaultProps = {

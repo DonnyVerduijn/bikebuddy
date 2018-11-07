@@ -42,29 +42,33 @@ class SideNavigationMenu extends Component {
     this.rootElement = document.getElementById('app');
     this.state = { isPanning: false };
   }
+  
   componentDidMount() {
     const element = this.element.current;
     const resetPosition = () => element.style.removeProperty('left');
     const changePosition = position =>
       (element.style.left = `${Math.min(position, 0)}px`);
-    const menuShouldClose = event =>
-      event.x < 0;
+    const menuShouldClose = event => event.x < 0;
 
     PanGestureService({
       element,
       horizontalMoveStarts: () => this.setState({ isPanning: true }),
-      horizontalMoves: event => this.props.isOpen && changePosition(event.x),
+      horizontalMoves: event => changePosition(event.x),
       horizontalMoveEnds: event => {
-        this.setState({ isPanning: false });
+        this.setState({ isPanning: false, isMenuOpen: this.props.isMenuOpen });
         menuShouldClose(event) && this.closeMenu();
         resetPosition();
       },
     });
   }
+  static getDerivedStateFromProps(props, state) {
+    return { ...state, isMenuOpen: props.isMenuOpen };
+  }
   render() {
-    const { isOpen, toTargetWindow } = this.props;
-    const className = `${css(styles.SideNavigationMenu)} ${isOpen &&
-      css(styles.open)} ${this.state.isPanning && css(styles.isPanning)}`;
+    const { toTargetWindow } = this.props;
+    const { isMenuOpen } = this.state;
+    const className = `${css(styles.SideNavigationMenu)} ${isMenuOpen &&
+      css(styles.open)} ${this.state.isPanning ? css(styles.isPanning) : ''}`;
 
     return (
       <div ref={this.element} className={className}>
@@ -96,7 +100,7 @@ class SideNavigationMenu extends Component {
 }
 
 SideNavigationMenu.propTypes = {
-  isOpen: PropTypes.bool,
+  isMenuOpen: PropTypes.bool,
   toTargetWindow: PropTypes.func,
   closeMenu: PropTypes.func,
 };

@@ -5,6 +5,7 @@ import BikeList from './../BikeList';
 import bikeSelectors from './../../selectors/BikeSelectors';
 
 const mapStateToProps = (state) => {
+  // const 
   return {
     bikeIds: bikeSelectors.getIds(state),
   };

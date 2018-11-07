@@ -1,1 +1,1 @@
-{"plugins":["cordova-plugin-whitelist","cordova-plugin-webpack","cordova-plugin-locationservices"]}
+{"plugins":["cordova-plugin-whitelist","cordova-plugin-webpack","cordova-plugin-locationservices","cordova-plugin-googlemaps"]}

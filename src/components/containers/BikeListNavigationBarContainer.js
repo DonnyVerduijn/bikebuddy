@@ -4,8 +4,7 @@ import BikeListNavigationBar from './../BikeListNavigationBar';
 
 const attachHandlers = compose(
   withHandlers({
-    openMenu: ({ onMenuIconClick }) => (e) => {
-      e.stopPropagation();
+    openMenu: ({ onMenuIconClick }) => () => {
       onMenuIconClick();
     },
     showSettings: ({ history }) => () => {

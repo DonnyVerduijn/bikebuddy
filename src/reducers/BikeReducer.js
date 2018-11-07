@@ -10,9 +10,16 @@ const BikeReducer = (state = {}, action) => {
         [action.bikeId]: {
           locationIds: [],
           name: action.name,
+          bikeFound: false,
         },
       };
     case 'BIKE_FOUND':
+      return {
+        ...state,
+        [action.bikeId]: Object.assign({}, state[action.bikeId], {
+          bikeFound: true,
+        }),
+      };
     case 'BIKE_REMOVE':
       return omit(state, action.bikeId);
     case 'LOCATION_ADD':

@@ -9,7 +9,7 @@ import BikeListNavigationBarContainer from './../containers/BikeListNavigationBa
 const BikeListWindow = ({ isMenuOpen, openMenu, closeMenu }) => {
   return (
     <Fragment>
-      <SideNavigationMenuContainer isOpen={isMenuOpen} closeMenu={closeMenu} />
+      <SideNavigationMenuContainer isMenuOpen={isMenuOpen} closeMenu={closeMenu} />
       <Window onClick={closeMenu} isDimmed={isMenuOpen}>
         <BikeListNavigationBarContainer onMenuIconClick={openMenu} />
         <BikeListContainer ignoreHandlers={isMenuOpen}/>
