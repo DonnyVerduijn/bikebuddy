@@ -1,12 +1,12 @@
 {
-  "name": "bikelocator",
-  "displayName": "bikelocator",
+  "name": "bikebuddy",
+  "displayName": "bikebuddy",
   "version": "1.0.0",
   "description": "A hybrid application to locate stored bicycles",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DonnyVerduijn/bikelocator.git"
+    "url": "git+https://github.com/DonnyVerduijn/bikebuddy.git"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -102,7 +102,7 @@
     "application"
   ],
   "bugs": {
-    "url": "https://github.com/DonnyVerduijn/bikelocator/issues"
+    "url": "https://github.com/DonnyVerduijn/bikebuddy/issues"
   },
-  "homepage": "https://github.com/DonnyVerduijn/bikelocator#readme"
+  "homepage": "https://github.com/DonnyVerduijn/bikebuddy#readme"
 }

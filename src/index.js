@@ -19,7 +19,7 @@ const CordovaApp = () => {
   const onDeviceReady = () => {
     store = ReduxStore.create();
     const root = document.getElementById('App');
-    const localStorage = LocalStorage({ identifier: 'bikelocator' });
+    const localStorage = LocalStorage({ identifier: 'bikebuddy' });
     const magneticSensor = MagneticSensor();
     const positionSensor = PositionSensor({ interval: 1000 });
 
