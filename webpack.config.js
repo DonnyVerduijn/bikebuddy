@@ -18,6 +18,7 @@ const dotenvPlugin =  new Dotenv({
 module.exports = {
   entry: './src/index.js',
   mode: 'development',
+  devtool: 'eval-source-map',
   output: {
     path: path.resolve(__dirname, 'www'),
     filename: 'bundle.js'
