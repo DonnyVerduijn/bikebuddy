@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, css } from 'aphrodite/no-important';
-import ReactSVG from 'react-svg';
 import checkmarkIcon from './../../assets/icon-checkmark.svg';
 import cancelIcon from './../../assets/icon-cancel.svg';
 import bikeIcon from './../../assets/icon-bike.svg';
@@ -18,43 +17,37 @@ const styles = StyleSheet.create({
     height: '.85em',
     fill: 'white',
   },
-  IconWrapper: {
-    margin: 0,
-    lineHeight: 0,
-  },
 });
 
 const getSVGIcon = type => {
   switch (type) {
-  case 'checkmark':
-    return checkmarkIcon;
-  case 'cancel':
-    return cancelIcon;
-  case 'bike':
-    return bikeIcon;
-  case 'navigate':
-    return navigateIcon;
-  case 'add':
-    return addIcon;
-  case 'delete':
-    return deleteIcon;
-  case 'back':
-    return backIcon;
-  case 'menu':
-    return menuIcon;
-  default:
-    return checkmarkIcon;
+    case 'checkmark':
+      return checkmarkIcon;
+    case 'cancel':
+      return cancelIcon;
+    case 'bike':
+      return bikeIcon;
+    case 'navigate':
+      return navigateIcon;
+    case 'add':
+      return addIcon;
+    case 'delete':
+      return deleteIcon;
+    case 'back':
+      return backIcon;
+    case 'menu':
+      return menuIcon;
+    default:
+      return checkmarkIcon;
   }
 };
 
-const Icon = ({ type, style, className, wrapperClassName, onClick }) => {
+const Icon = ({ type, style, className, onClick }) => {
+  const Svg = getSVGIcon(type);
   return (
-    <ReactSVG
-      src={getSVGIcon(type)}
-      evalScripts="never"
-      svgClassName={`${css(styles.Icon)} ${className}`}
-      className={`${css(styles.IconWrapper)} ${wrapperClassName}`}
-      svgStyle={style}
+    <Svg
+      style={style}
+      className={`${css(styles.Icon)} ${className}`}
       onClick={onClick}
     />
   );
@@ -64,7 +57,6 @@ Icon.propTypes = {
   type: PropTypes.string,
   style: PropTypes.object,
   className: PropTypes.string,
-  wrapperClassName: PropTypes.string,
   onClick: PropTypes.func,
 };
 

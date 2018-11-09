@@ -54,7 +54,7 @@ module.exports = {
       },
       {
         test: /\.svg$/,
-        loader: 'file-loader',
+        loader: 'react-svg-loader',
       },
     ]
   },

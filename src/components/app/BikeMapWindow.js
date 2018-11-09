@@ -20,25 +20,39 @@ const styles = StyleSheet.create({
 class BikeMapWindow extends React.Component {
   constructor(props) {
     super(props);
-    this.mapElement = React.createRef();
   }
 
   componentDidMount() {
-    console.log(this.mapElement.current.getBoundingClientRect());
-    this.googleMap = NativeGoogleMap(this.mapElement.current);
-    this.googleMap.onMapReady((map) => {
+    NativeGoogleMap(this.mapElement).onMapReady((map) => {
+      this.googleMap = map;
+      map.setMyLocationEnabled();
+      map.setMyLocationButtonEnabled();
       console.log(map);
+      map.on('map_drag', () => {
+        console.log('map dragged');
+      });
+      map.animateCamera({
+        target: {lat: 37.422359, lng: -122.084344},
+        zoom: 17,
+        tilt: 60,
+        bearing: 140,
+        duration: 5000
+      }, function() {
+        //alert("Camera target has been changed");
+      });
     });
   }
 
-  componentWillUnmount(){
-    this.googleMap.map.remove();
+  componentWillUnmount() {
+    this.googleMap.remove();
   }
 
-  shouldComponentUpdate() { return false; }
+  shouldComponentUpdate() {
+    return false;
+  }
 
   render() {
-    const { goBack, showSettings } = this.props; 
+    const { goBack, showSettings } = this.props;
     return (
       <Window className={css(styles.Window)}>
         <NavigationBar
@@ -48,7 +62,11 @@ class BikeMapWindow extends React.Component {
             <Icon {...props} type="settings" onClick={showSettings} />
           )}
         />
-        <div style={{ }} className={css(styles.Map)} ref={this.mapElement}/>
+        <div
+          style={{ width: '100%', height: '100%' }}
+          className={css(styles.Map)}
+          ref={ref => (this.mapElement = ref)}
+        />
         {/* <span>{this.props.match.params.userId}</span> */}
         {/* <button onClick={() => this.handleClick()}>Click me</button> */}
       </Window>
