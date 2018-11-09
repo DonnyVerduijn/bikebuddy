@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Image from './common/Image';
 import { StyleSheet, css } from 'aphrodite/no-important';
-import arrowIcon from './../assets/icon-arrow.svg';
+import ArrowIcon from './../assets/icon-arrow.svg';
 
 const styles = StyleSheet.create({
   DirectionArrow: {
@@ -25,8 +24,7 @@ const styles = StyleSheet.create({
 const DirectionArrow = props => {
   return (
     <div className={css(styles.DirectionArrowWrapper)}>
-      <Image
-        src={arrowIcon}
+      <ArrowIcon
         style={{ transform: `rotate(${props.rotation}deg)` }}
         className={css(styles.DirectionArrow)}
       />

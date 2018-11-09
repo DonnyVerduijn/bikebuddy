@@ -1,8 +1,10 @@
+import mapStyle from './../assets/mapStyle.json';
 
-const NativeGoogleMap = (element) => {
-  
+const NativeGoogleMap = element => {
   // eslint-disable-next-line
-  const map = plugin.google.maps.Map.getMap(element);
+  const map = plugin.google.maps.Map.getMap(element, { styles: mapStyle });
+  // eslint-disable-next-line
+  plugin.google.maps.environment.setBackgroundColor('rgb(0,0,0');
 
   const onMapReady = callback => {
     // eslint-disable-next-line

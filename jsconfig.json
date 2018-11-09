@@ -1,1 +1,9 @@
-{}
+{
+    "exclude": [
+        "node_modules",
+        "typings",
+        "platforms",
+        "www",
+        "typings"
+    ]
+}
