@@ -4,7 +4,7 @@ import { StyleSheet, css } from 'aphrodite/no-important';
 import HorizontalGroup from './wrappers/HorizontalGroup';
 
 const styles = StyleSheet.create({
-  NavigationBar: {
+  Navigation: {
     position: 'fixed',
     top: 0,
     left: 0,
@@ -33,9 +33,9 @@ const styles = StyleSheet.create({
   },
 });
 
-const NavigationBar = ({ className, title, leftIcon, rightIcon }) => {
+const Navigation = ({ className, title, leftIcon, rightIcon }) => {
   return (
-    <div className={`${css(styles.NavigationBar)} ${className || ''}`}>
+    <div className={`${css(styles.Navigation)} ${className || ''}`}>
       <HorizontalGroup className={css(styles.HorizontalGroup)}>
         {leftIcon && leftIcon({ className: css(styles.Icon) })}
         {title && title({ className: css(styles.PageTitle) })}
@@ -45,11 +45,11 @@ const NavigationBar = ({ className, title, leftIcon, rightIcon }) => {
   );
 };
 
-NavigationBar.propTypes = {
+Navigation.propTypes = {
   className: PropTypes.string,
   title: PropTypes.func,
   leftIcon: PropTypes.func,
   rightIcon: PropTypes.func,
 };
 
-export default NavigationBar;
+export default Navigation;

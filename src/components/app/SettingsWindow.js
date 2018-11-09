@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Window from './../common/Window';
-import SettingsNavigationBarContainer from './../containers/SettingsNavigationBarContainer';
+import SettingsNavigationContainer from './../containers/SettingsNavigationContainer';
 
 const SettingsWindow = ({ userId }) => {
   return (
     <Window>
-      <SettingsNavigationBarContainer />
+      <SettingsNavigationContainer />
       <p>{userId}</p>
     </Window>
   );

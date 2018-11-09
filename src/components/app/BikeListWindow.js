@@ -4,14 +4,14 @@ import Window from './../common/Window';
 import BikeListContainer from './../containers/BikeListContainer';
 import StoreBikeButtonContainer from './../containers/StoreBikeButtonContainer';
 import SideNavigationMenuContainer from './../containers/SideNavigationMenuContainer';
-import BikeListNavigationBarContainer from './../containers/BikeListNavigationBarContainer';
+import BikeListNavigationContainer from '../containers/BikeListNavigationContainer';
 
 const BikeListWindow = ({ isMenuOpen, openMenu, closeMenu }) => {
   return (
     <Fragment>
       <SideNavigationMenuContainer isMenuOpen={isMenuOpen} closeMenu={closeMenu} />
       <Window onClick={closeMenu} isDimmed={isMenuOpen}>
-        <BikeListNavigationBarContainer onMenuIconClick={openMenu} />
+        <BikeListNavigationContainer onMenuIconClick={openMenu} />
         <BikeListContainer ignoreHandlers={isMenuOpen}/>
         <StoreBikeButtonContainer />
       </Window>

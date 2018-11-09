@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, css } from 'aphrodite/no-important';
 import Window from '../common/Window';
-import NavigationBar from './../common/NavigationBar';
+import Navigation from '../common/Navigation';
 import Text from './../common/Text';
 import Icon from './../common/Icon';
 import NativeGoogleMap from './../../util/NativeGoogleMap';
@@ -55,7 +55,7 @@ class BikeMapWindow extends React.Component {
     const { goBack, showSettings } = this.props;
     return (
       <Window className={css(styles.Window)}>
-        <NavigationBar
+        <Navigation
           text={props => <Text {...props}>Recent</Text>}
           leftIcon={props => <Icon {...props} type="back" onClick={goBack} />}
           rightIcon={props => (

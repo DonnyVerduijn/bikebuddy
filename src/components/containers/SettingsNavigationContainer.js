@@ -1,6 +1,6 @@
 import { compose, withHandlers } from 'recompose';
 import { withRouter } from 'react-router-dom';
-import BikeListNavigationBar from './../BikeListNavigationBar';
+import BikeListNavigation from '../BikeListNavigation';
 
 const attachHandlers = compose(
   withHandlers({
@@ -12,4 +12,4 @@ const attachHandlers = compose(
   }),
 );
 
-export default withRouter(attachHandlers(BikeListNavigationBar));
+export default withRouter(attachHandlers(BikeListNavigation));
