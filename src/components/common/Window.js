@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     height: '100%',
     zIndex: 100,
     boxSizing: 'border-box',
-    paddingTop: '3.5em',
+    paddingTop: '56px',
     transitionProperty: 'opacity',
     transitionDuration: '.25s',
     transitionTimingFunction: 'linear',
@@ -23,9 +23,9 @@ const styles = StyleSheet.create({
 });
 
 const Window = props => {
-  const className = `${css(styles.Window)} ${
-    props.isDimmed ? css(styles.Dimmed) : ''
-  } ${props.className ? props.className : ''}`;
+  const className = props.isDimmed
+    ? css(styles.Window, styles.Dimmed)
+    : css(styles.Window);
   return (
     <div className={className} onClick={props.onClick}>
       {props.children}
@@ -40,7 +40,6 @@ Window.propTypes = {
   ]),
   isDimmed: PropTypes.bool,
   onClick: PropTypes.func,
-  className: PropTypes.string,
 };
 
 Window.defaultProps = {

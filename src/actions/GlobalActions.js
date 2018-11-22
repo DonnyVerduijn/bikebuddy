@@ -17,16 +17,16 @@ export default {
       value: value,
     };
   },
-  setDeviceLocation(deviceLocation) {
-    return {
-      type: 'GLOBAL_SET_DEVICE_LOCATION',
-      deviceLocation,
-    };
-  },
-  setDeviceOrientation(deviceOrientation) {
-    return {
-      type: 'GLOBAL_SET_DEVICE_ORIENTATION',
-      deviceOrientation,
-    };
-  },
+  // setDeviceLocation(deviceLocation) {
+  //   return {
+  //     type: 'GLOBAL_SET_DEVICE_LOCATION',
+  //     deviceLocation,
+  //   };
+  // },
+  // setDeviceOrientation(deviceOrientation) {
+  //   return {
+  //     type: 'GLOBAL_SET_DEVICE_ORIENTATION',
+  //     deviceOrientation,
+  //   };
+  // },
 };

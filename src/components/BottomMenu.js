@@ -1,9 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, css } from 'aphrodite/no-important';
-import List from './common/List';
-import ListItem from './common/ListItem';
-// import Icon from './common/Icon';
 import Text from './common/Text';
 
 const styles = StyleSheet.create({
@@ -26,29 +23,29 @@ const styles = StyleSheet.create({
 
 const BottomMenu = ({ showBikeList, showMap, showUserProfile }) => {
   return (
-    <List className={css(styles.BottomMenu)}>
-      <ListItem
+    <ul className={css(styles.BottomMenu)}>
+      <li
         className={css(styles.BottomMenuItem)}
         onClick={showBikeList}
       >
         {/* <Icon /> */}
         <Text>BikeList</Text>
-      </ListItem>
-      <ListItem
+      </li>
+      <li
         className={css(styles.BottomMenuItem)}
         onClick={showMap}
       >
         {/* <Icon /> */}
         <Text>Map</Text>
-      </ListItem>
-      <ListItem
+      </li>
+      <li
         className={css(styles.BottomMenuItem)}
         onClick={showUserProfile}
       >
         {/* <Icon /> */}
         <Text>Profile</Text>
-      </ListItem>
-    </List>
+      </li>
+    </ul>
   );
 };
 

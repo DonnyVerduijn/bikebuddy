@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
 const Image = props => {
   return (
     <img
-      className={`${css(styles.Image)} ${props.className}`}
+      className={css(styles.Image)}
       src={props.src}
       style={props.style}
     />
@@ -19,7 +19,6 @@ const Image = props => {
 Image.propTypes = {
   src: PropTypes.string,
   style: PropTypes.object,
-  className: PropTypes.string,
 };
 
 export default Image;

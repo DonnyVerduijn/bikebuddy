@@ -6,9 +6,10 @@ const enhance = compose(
   withProps(props => {
     return {
     ...props,
-    title: 'settings',
+    id: props.match.params.id,
+    title: props.title,
     leftIcon: 'back',
-    rightIcon: null,
+    rightIcon: 'delete',
     };
   }),
   withHandlers({

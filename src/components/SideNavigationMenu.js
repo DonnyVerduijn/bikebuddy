@@ -1,12 +1,15 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, css } from 'aphrodite/no-important';
-import List from './common/List';
-import ListItem from './common/ListItem';
+// import List from './common/List';
 import PanGestureService from '../util/PanGestureService';
+import SideNavigationMenuItem from './SideNavigationMenuItem';
 
 const styles = StyleSheet.create({
   SideNavigationMenu: {
+    margin: 0,
+    padding: 0,
+    listStyleType: 'none',
     position: 'absolute',
     width: '18.5em',
     left: '-18.5em',
@@ -16,84 +19,83 @@ const styles = StyleSheet.create({
     background: 'rgb(255,255,255)',
     zIndex: 1000,
   },
-  open: {
-    left: 0,
-  },
-  isPanning: {
-    transition: 'none',
-  },
-  ListItem: {
-    display: 'block',
-    padding: '.75em 1em',
-    fontSize: '1.1em',
-    color: 'rgb(34,34,34)',
-    borderBotom: '1px solid rgba(0,0,0,0.1)',
-  },
   List: {
     marginTop: '.75em',
   },
 });
 
-class SideNavigationMenu extends Component {
+class SideNavigationMenu extends PureComponent {
   constructor(props) {
     super(props);
-    this.element = React.createRef();
     this.closeMenu = props.closeMenu;
+    this.element;
     this.rootElement = document.getElementById('app');
-    this.state = { isPanning: false };
+    this.state = { isPanning: false, position: 0 };
   }
-  
-  componentDidMount() {
-    const element = this.element.current;
-    const resetPosition = () => element.style.removeProperty('left');
-    const changePosition = position =>
-      (element.style.left = `${Math.min(position, 0)}px`);
-    const menuShouldClose = event => event.x < 0;
 
+  setPosition(offset) {
+    this.setState({ position: `${Math.min(offset, 0)}px` });
+  }
+
+  componentDidMount() {
     PanGestureService({
-      element,
-      horizontalMoveStarts: () => this.setState({ isPanning: true }),
-      horizontalMoves: event => changePosition(event.x),
+      element: this.element,
+      horizontalMoveStarts: (event) => {
+        this.setPosition(event.x);
+        this.setState({ isPanning: true });
+      },
+      horizontalMoves: event => {
+        this.setPosition(event.x);
+      },
       horizontalMoveEnds: event => {
-        this.setState({ isPanning: false, isMenuOpen: this.props.isMenuOpen });
-        menuShouldClose(event) && this.closeMenu();
-        resetPosition();
+        this.setPosition(event.x);
+        this.setState({ isPanning: false });
+        event.x < 0 && this.closeMenu();
       },
     });
   }
   static getDerivedStateFromProps(props, state) {
     return { ...state, isMenuOpen: props.isMenuOpen };
   }
+
   render() {
     const { toTargetWindow } = this.props;
     const { isMenuOpen } = this.state;
-    const className = `${css(styles.SideNavigationMenu)} ${isMenuOpen &&
-      css(styles.open)} ${this.state.isPanning ? css(styles.isPanning) : ''}`;
 
     return (
-      <div ref={this.element} className={className}>
-        <List className={css(styles.List)}>
-          <ListItem
-            className={css(styles.ListItem)}
-            onClick={() => toTargetWindow('/')}
-            text="Bikelist"
+      <div
+        ref={ref => (this.element = ref)}
+        className={css(styles.SideNavigationMenu)}
+        style={{
+          ...(isMenuOpen && !this.state.isPanning && { left: 0 }),
+          ...(this.state.isPanning && {
+            transition: 'none',
+            left: this.state.position,
+          }),
+        }}
+      >
+        <ul className={css(styles.List)}>
+          <SideNavigationMenuItem
+            icon="bike"
+            text="Bikes"
+            onClick={() => this.closeMenu()}
           />
-          <ListItem
-            className={css(styles.ListItem)}
-            onClick={() => toTargetWindow('/map')}
-            text="Map"
+          <SideNavigationMenuItem
+            icon="storage"
+            text="Storages"
+            onClick={toTargetWindow('/map')}
           />
-          <ListItem
-            className={css(styles.ListItem)}
-            onClick={() => toTargetWindow('/settings')}
+          <SideNavigationMenuItem
+            icon="settings"
             text="Settings"
+            onClick={toTargetWindow('/settings')}
           />
-          <ListItem
-            className={css(styles.ListItem)}
-            onClick={() => toTargetWindow('/about')}
+          <SideNavigationMenuItem
+            icon="about"
             text="About"
+            onClick={toTargetWindow('/about')}
           />
-        </List>
+        </ul>
       </div>
     );
   }

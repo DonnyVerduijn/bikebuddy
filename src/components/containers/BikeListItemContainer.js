@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
 import { compose, withHandlers } from 'recompose';
 import BikeListItem from './../BikeListItem';
-import bikeSelectors from './../../selectors/BikeSelectors';
-import locationSelectors from './../../selectors/LocationSelectors';
-import globalSelectors from './../../selectors/GlobalSelectors';
+import bikes from './../../selectors/BikeSelectors';
+import locations from './../../selectors/LocationSelectors';
+import globals from './../../selectors/GlobalSelectors';
 import geoService from './../../util/GeoService';
 import distanceFormatter from './../../util/DistanceFormatter';
 import moment from 'moment';
@@ -12,9 +12,9 @@ const isNearbyTreshold = 10;
 const addressPlaceholder = 'resolving address...';
 
 const mapStateToProps = (state, ownProps) => {
-  const userLocation = globalSelectors.getDeviceLocation(state);
-  const bike = bikeSelectors.getById(state, ownProps.bikeId);
-  const bikeLocation = locationSelectors.getById(state, bike.locationIds[0]);
+  const userLocation = globals.getDeviceLocation(state);
+  const bike = bikes.getById(state, ownProps.bikeId);
+  const bikeLocation = locations.getById(state, bike.locationIds[0]);
   const bikeAddress = 
     bikeLocation && bikeLocation.address
       ? bikeLocation.address

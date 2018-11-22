@@ -1,22 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Window from '../common/Window';
-import DistanceToTargetContainer from '../containers/DistanceToTargetContainer';
-import DirectionArrowContainer from '../containers/DirectionArrowContainer';
+import DistanceToTarget from '../DistanceToTarget';
+import DirectionArrow from '../DirectionArrow';
 import NavigatorButtonGroupContainer from './../containers/NavigatorButtonGroupContainer';
 
-const NavigatorWindow = ({ match }) => {
+const NavigatorWindow = ({ bikeId, direction, distance }) => {
   return (
     <Window>
-      <DistanceToTargetContainer bikeId={match.params.id} />
-      <DirectionArrowContainer bikeId={match.params.id} />
-      <NavigatorButtonGroupContainer bikeId={match.params.id} />
+      <DistanceToTarget distance={distance} />
+      <DirectionArrow direction={direction} />
+      <NavigatorButtonGroupContainer bikeId={bikeId}/>
     </Window>
   );
 };
 
 NavigatorWindow.propTypes = {
-  match: PropTypes.object,
+  bikeId: PropTypes.number,
+  direction: PropTypes.number,
+  distance: PropTypes.number,
 };
 
 export default NavigatorWindow;

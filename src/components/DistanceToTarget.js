@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Text from './common/Text';
 
-const DistanceToTarget = ({ distanceToTarget }) => {
-  return distanceToTarget ? <Text>{`${distanceToTarget}M`}</Text> : null;
+const DistanceToTarget = ({ distance }) => {
+  return distance ? <Text>{`${distance}M`}</Text> : null;
 };
 
 DistanceToTarget.propTypes = {
-  distanceToTarget: PropTypes.string,
+  distance: PropTypes.string,
 };
 
 export default DistanceToTarget;

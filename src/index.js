@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import ReduxStore from './util/ReduxStore';
 import LocalStorage from './util/LocalStorage';
-import PositionSensor from './util/PositionSensor';
-import MagneticSensor from './util/MagneticSensor';
+// import PositionSensor from './util/PositionSensor';
+// import MagneticSensor from './util/MagneticSensor';
 
 import userActions from './actions/UserActions';
 import globalSelectors from './selectors/GlobalSelectors';
@@ -12,6 +12,7 @@ import globalActions from './actions/GlobalActions';
 import uuid from 'uuidv4';
 import App from './components/app/App';
 import './index.css';
+import 'typeface-roboto';
 
 const CordovaApp = () => {
   let store = null;
@@ -20,17 +21,6 @@ const CordovaApp = () => {
     store = ReduxStore.create();
     const root = document.getElementById('App');
     const localStorage = LocalStorage({ identifier: 'bikebuddy' });
-    const magneticSensor = MagneticSensor();
-    const positionSensor = PositionSensor({ interval: 1000 });
-
-    // attach callbacks to sensors
-    positionSensor.listen(location => {
-      store.dispatch(globalActions.setDeviceLocation(location));
-    });
-
-    magneticSensor.listen(orientation => {
-      store.dispatch(globalActions.setDeviceOrientation(orientation));
-    });
 
     // fetch from localStorage
     store.dispatch(
@@ -49,9 +39,9 @@ const CordovaApp = () => {
 
     // bootstrap react
     ReactDOM.render(
-        <Provider store={store}>
-          <App />
-        </Provider>,
+      <Provider store={store}>
+        <App />
+      </Provider>,
       root,
     );
   };

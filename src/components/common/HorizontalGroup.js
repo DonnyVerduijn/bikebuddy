@@ -6,24 +6,26 @@ const styles = StyleSheet.create({
   HorizontalGroup: {
     display: 'flex',
     flexDirection: 'row',
+    alignItems: 'baseline',
   },
 });
 
-const HorizontalGroup = props => {
+const HorizontalGroup = ({ children, margin }) => {
   return (
     <div
-      className={`${css(styles.HorizontalGroup)} ${props.className}`}
-      style={props.style}
+      className={css(styles.HorizontalGroup)}
+      style={{
+        ...(margin && { margin })
+      }}
     >
-      {props.children}
+      {children}
     </div>
   );
 };
 
 HorizontalGroup.propTypes = {
   children: PropTypes.any,
-  style: PropTypes.object,
-  className: PropTypes.string,
+  margin: PropTypes.string,
 };
 
 export default HorizontalGroup;

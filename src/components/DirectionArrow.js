@@ -1,15 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, css } from 'aphrodite/no-important';
-import ArrowIcon from './../assets/icon-arrow.svg';
+import Icon from './common/Icon';
 
-const styles = StyleSheet.create({
+const style = {
   DirectionArrow: {
-    width: '10em',
-    height: '10em',
-    display: 'inline-block'
-  },
-  DirectionArrowWrapper: {
     position: 'absolute',
     top: 0,
     right: 0,
@@ -19,21 +14,25 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-});
+  Icon: {
+    width: '10em',
+    height: '10em',
+    display: 'inline-block',
+  },
+};
+
+const styles = StyleSheet.create(style);
 
 const DirectionArrow = props => {
   return (
-    <div className={css(styles.DirectionArrowWrapper)}>
-      <ArrowIcon
-        style={{ transform: `rotate(${props.rotation}deg)` }}
-        className={css(styles.DirectionArrow)}
-      />
+    <div className={css(styles.DirectionArrow)}>
+      <Icon type="arrow" size={style.Icon.width} rotate={props.direction} />
     </div>
   );
 };
 
 DirectionArrow.propTypes = {
-  rotation: PropTypes.number,
+  direction: PropTypes.number,
 };
 
 export default DirectionArrow;

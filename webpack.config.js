@@ -5,14 +5,14 @@ const Dotenv = require('dotenv-webpack');
 
 const htmlPlugin = new HtmlWebPackPlugin({
   template: './src/index.html',
-  filename: './index.html'
+  filename: './index.html',
 });
 
-const dotenvPlugin =  new Dotenv({
+const dotenvPlugin = new Dotenv({
   path: './.env', // load this now instead of the ones in '.env'
   safe: false, // load '.env.example' to verify the '.env' variables are all set. Can also be a string to a different file.
   systemvars: false, // load all the predefined 'process.env' variables which will trump anything local per dotenv specs.
-  silent: false // hide any errors
+  silent: false, // hide any errors
 });
 
 module.exports = {
@@ -20,8 +20,9 @@ module.exports = {
   mode: 'development',
   devtool: 'eval-source-map',
   output: {
+    // eslint-disable-next-line
     path: path.resolve(__dirname, 'www'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
   },
   module: {
     rules: [
@@ -31,15 +32,15 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env', '@babel/preset-react']
-          }
-        }
+            presets: ['@babel/preset-env', '@babel/preset-react'],
+          },
+        },
       },
       {
         test: /\.css$/,
         use: [
           {
-            loader: 'style-loader'
+            loader: 'style-loader',
           },
           {
             loader: 'css-loader',
@@ -47,19 +48,28 @@ module.exports = {
               importLoaders: 1,
               localIdentName: '[name]_[local]_[hash:base64]',
               sourceMap: true,
-              minimize: true
-            }
-          }
-        ]
+              minimize: true,
+            },
+          },
+        ],
       },
       {
         test: /\.svg$/,
         loader: 'react-svg-loader',
       },
-    ]
+      {
+        test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'fonts/',
+            },
+          },
+        ],
+      },
+    ],
   },
-  plugins: [
-    htmlPlugin,
-    dotenvPlugin
-  ]
+  plugins: [htmlPlugin, dotenvPlugin],
 };

@@ -1,0 +1,10 @@
+[
+    {
+        "title": "fietsenstalling station tilburg",
+        "location": { "lat": 51.560249, "lng": 5.085565 }
+    },
+    {
+        "title": "fietsenstalling station breda (zuid)",
+        "location": { "lat": 51.595096, "lng": 4.779521 }
+    }
+]

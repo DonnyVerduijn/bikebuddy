@@ -3,39 +3,46 @@ const defaults = {
   timeout: 5000,
   enableHighAccuracy: true,
   priority: 0,
-  interval: 250,
-  fastInterval: 100
+  interval: 1000,
+  fastInterval: 100,
 };
 
-const PositionSensor = (config = {}) => {
-  let watchId = null;
-  const options = Object.assign({}, defaults, config);
+const PositionSensor = () => {
+  // eslint-disable-next-line
+  const api = cordova.plugins.locationServices.geolocation;
+  const listeners = {};
 
   // store listener into listener dictionary
-  const listen = callback => {
-    // eslint-disable-next-line
-    watchId = cordova.plugins.locationServices.geolocation.watchPosition(
+  const listen = (callback, options, onError) => {
+    const id = api.watchPosition(
       callback,
       onError,
-      options
+      Object.assign({}, defaults, options),
     );
+    listeners[id] = callback;
+    return id;
   };
 
-  // omit listener by id
-  const unlisten = () => {
-    if (watchId !== null)
-    // eslint-disable-next-line
-      cordova.plugins.locationServices.geolocation.clearWatch(watchId);
+  const unlisten = id => {
+    api.clearWatch(id);
   };
 
-  const onError = () => {
-    // alert("code: " + error.code + "\n" + "message: " + error.message + "\n");
+  const getPosition = options => {
+    return new Promise((resolve, reject) => {
+      api.getCurrentPosition(
+        resolve,
+        reject,
+        Object.assign({}, defaults, options),
+      );
+    });
   };
 
   return {
     listen,
     unlisten,
+    getPosition,
   };
 };
 
-export default PositionSensor;
+const singleton = PositionSensor();
+export default singleton;

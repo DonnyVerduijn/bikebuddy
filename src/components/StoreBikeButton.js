@@ -1,23 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from './common/Button';
-import Icon from './common/Icon';
-import Text from './common/Text';
+import Button from '@material-ui/core/Button';
+// import Icon from './common/Icon';
+// import Text from './common/Text';
+import HorizontalGroup from './common/HorizontalGroup';
+import AddIcon from '@material-ui/icons/AddRounded';
 
 const StoreBikeButton = ({ storeBike }) => {
   return (
-    <Button
-      onClick={() => storeBike()}
-      icon={props => <Icon type="add" style={props.style} {...props} />}
-      text={props => <Text {...props}>store</Text>}
-      isRaised
-    />
+    <HorizontalGroup>
+      <Button
+        variant="contained"
+        color="secondary"
+        onClick={storeBike}
+      >
+        store
+        <AddIcon />
+      </Button>
+    </HorizontalGroup>
   );
 };
 
 StoreBikeButton.propTypes = {
-  onClick: PropTypes.func,
-  style: PropTypes.object,
+  storeBike: PropTypes.func,
 };
 
 export default StoreBikeButton;

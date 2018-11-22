@@ -7,13 +7,15 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
   },
+  flexGrow: {
+    flexGrow: 1,
+  },
 });
 
 const VerticalGroup = props => {
   return (
     <div
-      className={`${css(styles.VerticalGroup)} ${props.className}`}
-      style={props.style}
+      className={css(styles.VerticalGroup, props.grow && styles.flexGrow)}
       onClick={props.onClick}
     >
       {props.children}
@@ -23,9 +25,8 @@ const VerticalGroup = props => {
 
 VerticalGroup.propTypes = {
   children: PropTypes.any,
-  style: PropTypes.object,
-  className: PropTypes.string,
   onClick: PropTypes.func,
+  grow: PropTypes.bool,
 };
 
 export default VerticalGroup;

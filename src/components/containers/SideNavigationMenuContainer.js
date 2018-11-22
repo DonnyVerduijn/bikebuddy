@@ -4,7 +4,7 @@ import { withRouter } from 'react-router';
 
 const attachHandlers = compose(
   withHandlers({
-    toTargetWindow: ({ history }) => path => {
+    toTargetWindow: ({ history }) => path => () => {
       history.push(path);
     },
   }),

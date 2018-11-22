@@ -6,7 +6,7 @@ const enhance = compose(
   withProps(props => {
     return {
     ...props,
-    title: 'settings',
+    title: 'About',
     leftIcon: 'back',
     rightIcon: null,
     };

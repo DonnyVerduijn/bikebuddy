@@ -1,16 +1,22 @@
-import { compose, withHandlers } from 'recompose';
+import { compose, withProps, withHandlers } from 'recompose';
 import { withRouter } from 'react-router-dom';
-import BikeListNavigation from './../BikeListNavigation';
+import AppBar from '../AppBar';
 
-const attachHandlers = compose(
+const enhance = compose(
+  withProps(props => ({
+    ...props,
+    title: 'bikelist',
+    leftIcon: 'menu',
+    rightIcon: 'settings',
+  })),
   withHandlers({
-    openMenu: ({ onMenuIconClick }) => () => {
+    leftIconHandler: ({ onMenuIconClick }) => () => {
       onMenuIconClick();
     },
-    showSettings: ({ history }) => () => {
+    rightIconHandler: ({ history }) => () => {
       history.push('/settings');
     },
   }),
 );
 
-export default withRouter(attachHandlers(BikeListNavigation));
+export default withRouter(enhance(AppBar));

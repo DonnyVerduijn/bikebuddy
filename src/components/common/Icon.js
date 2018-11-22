@@ -1,63 +1,82 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, css } from 'aphrodite/no-important';
-import checkmarkIcon from './../../assets/icon-checkmark.svg';
-import cancelIcon from './../../assets/icon-cancel.svg';
+import checkmarkIcon from '@material-ui/icons/CheckRounded';
+import closeIcon from '@material-ui/icons/CloseRounded';
 import bikeIcon from './../../assets/icon-bike.svg';
-import navigateIcon from './../../assets/icon-navigate.svg';
-import addIcon from './../../assets/icon-add.svg';
-import deleteIcon from './../../assets/icon-delete.svg';
-import menuIcon from './../../assets/icon-menu.svg';
-import backIcon from './../../assets/icon-back-arrow.svg';
+import navigationIcon from '@material-ui/icons/NavigationRounded';
+import addIcon from '@material-ui/icons/AddRounded';
+import addLocationIcon from '@material-ui/icons/AddLocationRounded';
+import deleteIcon from '@material-ui/icons/DeleteRounded';
+import menuIcon from '@material-ui/icons/MenuRounded';
+import backIcon from '@material-ui/icons/ArrowBackRounded';
+import settingsIcon from '@material-ui/icons/SettingsRounded';
+import storageIcon from '@material-ui/icons/LocalParkingRounded';
+import aboutIcon from '@material-ui/icons/InfoRounded';
 
-const styles = StyleSheet.create({
-  Icon: {
-    display: 'inline-block',
-    width: '.85em',
-    height: '.85em',
-    fill: 'white',
-  },
-});
 
-const getSVGIcon = type => {
+const getIcon = type => {
   switch (type) {
     case 'checkmark':
       return checkmarkIcon;
-    case 'cancel':
-      return cancelIcon;
+    case 'close':
+      return closeIcon;
     case 'bike':
       return bikeIcon;
     case 'navigate':
-      return navigateIcon;
+      return navigationIcon;
     case 'add':
       return addIcon;
+    case 'addLocation':
+      return addLocationIcon;
     case 'delete':
       return deleteIcon;
     case 'back':
       return backIcon;
     case 'menu':
       return menuIcon;
+    case 'settings':
+      return settingsIcon;
+    case 'storage':
+      return storageIcon;
+    case 'about':
+      return aboutIcon;
     default:
       return checkmarkIcon;
   }
 };
 
-const Icon = ({ type, style, className, onClick }) => {
-  const Svg = getSVGIcon(type);
+const Icon = ({ type, color, size, margin, rotate, onClick, ...props }) => {
+  const MaterialIcon = getIcon(type);
   return (
-    <Svg
-      style={style}
-      className={`${css(styles.Icon)} ${className}`}
+    <MaterialIcon
+      style={{
+        ...(color && { fill: color }),
+        ...(size && { width: size, height: size }),
+        ...(rotate && { transform: `rotate(${rotate}deg)` }),
+        ...(margin && { margin: margin }),
+      }}
       onClick={onClick}
+      {...props}
     />
   );
 };
 
 Icon.propTypes = {
   type: PropTypes.string,
-  style: PropTypes.object,
-  className: PropTypes.string,
+  color: PropTypes.string,
+  size: PropTypes.string,
+  margin: PropTypes.string,
+  rotate: PropTypes.number,
   onClick: PropTypes.func,
+};
+
+Icon.defaultProps = {
+  type: '',
+  color: null,
+  size: null,
+  margin: '',
+  rotate: 0,
+  onClick: () => {},
 };
 
 export default Icon;

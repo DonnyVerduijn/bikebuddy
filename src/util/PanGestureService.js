@@ -45,10 +45,10 @@ const PanGestureService = options => {
     map(mouseEventToCoordinate),
   );
 
-  const touchStarts = fromEvent(element, 'touchstart').pipe(
+  const touchStarts = fromEvent(element, 'touchstart', {passive: true}).pipe(
     map(touchEventToCoordinate),
   );
-  const touchMoves = fromEvent(element, 'touchmove').pipe(
+  const touchMoves = fromEvent(element, 'touchmove', {passive: true}).pipe(
     map(touchEventToCoordinate),
   );
   const touchEnds = fromEvent(window, 'touchend').pipe(
@@ -65,7 +65,7 @@ const PanGestureService = options => {
     concatMap(dragStartEvent =>
       moves.pipe(
         takeUntil(ends),
-        elementAt(1),
+        elementAt(0),
         catchError(() => EMPTY),
         map(dragEvent => {
           const intialDeltaX = dragEvent.x - dragStartEvent.x;
