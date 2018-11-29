@@ -1,105 +1,56 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, css } from 'aphrodite/no-important';
-// import List from './common/List';
-import PanGestureService from '../util/PanGestureService';
-import SideNavigationMenuItem from './SideNavigationMenuItem';
+import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import Icon from './common/Icon';
 
 const styles = StyleSheet.create({
-  SideNavigationMenu: {
-    margin: 0,
-    padding: 0,
-    listStyleType: 'none',
-    position: 'absolute',
-    width: '18.5em',
-    left: '-18.5em',
-    top: '0',
-    bottom: '0',
-    transition: 'left .1s linear',
-    background: 'rgb(255,255,255)',
-    zIndex: 1000,
-  },
+  SideNavigationMenu: {},
   List: {
     marginTop: '.75em',
+    width: '17em',
   },
 });
 
-class SideNavigationMenu extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.closeMenu = props.closeMenu;
-    this.element;
-    this.rootElement = document.getElementById('app');
-    this.state = { isPanning: false, position: 0 };
-  }
+const menuItems = [
+  { icon: 'history', text: 'Location history', path: '/' },
+  { icon: 'storage', text: 'Storages', path: '/map' },
+  { icon: 'settings', text: 'Settings', path: '/settings' },
+  { icon: 'about', text: 'About', path: '/about' },
+];
 
-  setPosition(offset) {
-    this.setState({ position: `${Math.min(offset, 0)}px` });
-  }
-
-  componentDidMount() {
-    PanGestureService({
-      element: this.element,
-      horizontalMoveStarts: (event) => {
-        this.setPosition(event.x);
-        this.setState({ isPanning: true });
-      },
-      horizontalMoves: event => {
-        this.setPosition(event.x);
-      },
-      horizontalMoveEnds: event => {
-        this.setPosition(event.x);
-        this.setState({ isPanning: false });
-        event.x < 0 && this.closeMenu();
-      },
-    });
-  }
-  static getDerivedStateFromProps(props, state) {
-    return { ...state, isMenuOpen: props.isMenuOpen };
-  }
-
-  render() {
-    const { toTargetWindow } = this.props;
-    const { isMenuOpen } = this.state;
-
-    return (
-      <div
-        ref={ref => (this.element = ref)}
-        className={css(styles.SideNavigationMenu)}
-        style={{
-          ...(isMenuOpen && !this.state.isPanning && { left: 0 }),
-          ...(this.state.isPanning && {
-            transition: 'none',
-            left: this.state.position,
-          }),
-        }}
-      >
-        <ul className={css(styles.List)}>
-          <SideNavigationMenuItem
-            icon="bike"
-            text="Bikes"
-            onClick={() => this.closeMenu()}
-          />
-          <SideNavigationMenuItem
-            icon="storage"
-            text="Storages"
-            onClick={toTargetWindow('/map')}
-          />
-          <SideNavigationMenuItem
-            icon="settings"
-            text="Settings"
-            onClick={toTargetWindow('/settings')}
-          />
-          <SideNavigationMenuItem
-            icon="about"
-            text="About"
-            onClick={toTargetWindow('/about')}
-          />
-        </ul>
-      </div>
-    );
-  }
-}
+const SideNavigationMenu = props => {
+  const { toTargetWindow, closeMenu } = props;
+  let { isMenuOpen } = props;
+  return (
+    <SwipeableDrawer
+      anchor="left"
+      className={css(styles.SideNavigationMenu)}
+      open={isMenuOpen}
+      onClose={closeMenu}
+      onOpen={() => {}}
+    >
+      <List className={css(styles.List)}>
+        {menuItems.map((item, index) => {
+          return (
+            <ListItem key={index} button onClick={toTargetWindow(item.path)}>
+              <ListItemIcon>
+                <Icon type={item.icon} />
+              </ListItemIcon>
+              <ListItemText primary={item.text} />
+            </ListItem>
+          );
+        })}
+        <Divider />
+      </List>
+    </SwipeableDrawer>
+  );
+};
 
 SideNavigationMenu.propTypes = {
   isMenuOpen: PropTypes.bool,

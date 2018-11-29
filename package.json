@@ -26,8 +26,10 @@
     "browser-sync": "^2.26.3",
     "cheerio": "^0.22.0",
     "cordova-android": "^7.1.1",
+    "cordova-background-geolocation-lt": "^2.14.2",
     "cordova-browser": "^5.0.4",
     "cordova-ios": "^4.5.5",
+    "cordova-plugin-background-fetch": "^5.4.1",
     "cordova-plugin-googlemaps": "^2.4.6",
     "cordova-plugin-locationservices": "^2.1.0",
     "cordova-plugin-webpack": "0.0.2",
@@ -69,6 +71,11 @@
         "API_KEY_FOR_IOS": "AIzaSyCvR9rEbr2aEOXEvoGxlOr5kQIsnFh_i8w",
         "PLAY_SERVICES_VERSION": "15.0.1",
         "ANDROID_SUPPORT_V4_VERSION": "27.+"
+      },
+      "cordova-background-geolocation-lt": {
+        "LICENSE": "YOUR_LICENSE_KEY",
+        "GOOGLE_API_VERSION": "16.0.0",
+        "APPCOMPAT_VERSION": "27.1.1"
       }
     },
     "platforms": [

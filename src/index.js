@@ -3,12 +3,11 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import ReduxStore from './util/ReduxStore';
 import LocalStorage from './util/LocalStorage';
-// import PositionSensor from './util/PositionSensor';
-// import MagneticSensor from './util/MagneticSensor';
-
 import userActions from './actions/UserActions';
 import globalSelectors from './selectors/GlobalSelectors';
 import globalActions from './actions/GlobalActions';
+import BackgroundLocationProvider from './util/BackgroundLocationProvider';
+import CordovaEvents from './util/CordovaEvents';
 import uuid from 'uuidv4';
 import App from './components/app/App';
 import './index.css';
@@ -37,6 +36,14 @@ const CordovaApp = () => {
       store.dispatch(globalActions.setUserId(id));
     }
 
+    const log = e => console.log(e);
+
+    BackgroundLocationProvider.onLocation(log);
+    BackgroundLocationProvider.onActivityChange(log);
+    BackgroundLocationProvider.onProviderChange(log);
+    BackgroundLocationProvider.onMotionChange(log);
+    BackgroundLocationProvider.onGeofence(log);
+
     // bootstrap react
     ReactDOM.render(
       <Provider store={store}>
@@ -64,8 +71,6 @@ const CordovaApp = () => {
 
 // instantiate module
 const cordovaApp = CordovaApp();
-
-// listen to DOM events
-document.addEventListener('deviceready', cordovaApp.onDeviceReady, false);
-document.addEventListener('pause', cordovaApp.onPause, false);
-document.addEventListener('resume', cordovaApp.onResume, false);
+CordovaEvents.onDeviceReady(cordovaApp.onDeviceReady);
+CordovaEvents.onPause(cordovaApp.onPause);
+CordovaEvents.onResume(cordovaApp.onResume);

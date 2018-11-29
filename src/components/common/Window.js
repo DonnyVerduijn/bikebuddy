@@ -6,8 +6,6 @@ import { StyleSheet, css } from 'aphrodite/no-important';
 const styles = StyleSheet.create({
   Window: {
     position: 'relative',
-    width: '100%',
-    height: '100%',
     zIndex: 100,
     boxSizing: 'border-box',
     paddingTop: '56px',
@@ -15,19 +13,15 @@ const styles = StyleSheet.create({
     transitionDuration: '.25s',
     transitionTimingFunction: 'linear',
     backgroundColor: 'rgba(235, 235, 237, 1)',
-    opacity: 1,
-  },
-  Dimmed: {
-    opacity: 0.5,
   },
 });
 
 const Window = props => {
-  const className = props.isDimmed
-    ? css(styles.Window, styles.Dimmed)
-    : css(styles.Window);
   return (
-    <div className={className} onClick={props.onClick}>
+    <div
+      className={css(styles.Window)}
+      style={{ width: '100%', height: '100%' }}
+    >
       {props.children}
     </div>
   );
@@ -38,12 +32,6 @@ Window.propTypes = {
     PropTypes.element,
     PropTypes.arrayOf(PropTypes.element),
   ]),
-  isDimmed: PropTypes.bool,
-  onClick: PropTypes.func,
-};
-
-Window.defaultProps = {
-  onClick: () => {},
 };
 
 export default Window;

@@ -1,18 +1,27 @@
-import { connect } from 'react-redux';
-import StorageMapWindow from '../app/StorageMapWindow';
-// import global from './../../selectors/GlobalSelectors'; 
+import { compose, withState, withHandlers } from 'recompose';
+// import { connect } from 'react-redux';
+import MapWindow from '../app/MapWindow';
 
-const mapStateToProps = () => {
-  return {
+// const mapStateToProps = () => {
+//   return {
     
-  };
-};
+//   };
+// };
 
-const mapDispatchToProps = () => {
-  return {};
-};
+// const mapDispatchToProps = () => {
+//   return {};
+// };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(StorageMapWindow);
+const attachHandlers = compose(
+  withState('isMenuOpen', 'setIsMenuOpen', false),
+  withHandlers({
+    openMenu: ({ isMenuOpen, setIsMenuOpen }) => () => {
+      !isMenuOpen && setIsMenuOpen(true);
+    },
+    closeMenu: ({ isMenuOpen, setIsMenuOpen }) => () => {
+      isMenuOpen && setIsMenuOpen(false);
+    },
+  }),
+);
+
+export default attachHandlers(MapWindow);

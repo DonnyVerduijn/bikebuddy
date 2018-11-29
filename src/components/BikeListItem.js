@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, css } from 'aphrodite/no-important';
-// import NavigateIcon from '@material-ui/icons/NavigationRounded';
 import IconButton from '@material-ui/core/IconButton';
 import Icon from './common/Icon';
 import Text from './common/Text';
 import HorizontalGroup from './common/HorizontalGroup';
 import VerticalGroup from './common/VerticalGroup';
+import Typography from '@material-ui/core/Typography';
 
 const style = {
   BikeIcon: {
@@ -52,10 +52,10 @@ const BikeListItem = ({ bike, showBike, navigateBike }) => {
       />
       <VerticalGroup grow={true} onClick={showBike}>
         <HorizontalGroup margin="0 0 .25em 0">
-          <Text type="title">{bike.name}</Text>
-          <Text type="subtitle">{bike.distance}</Text>
+          <Typography variant="h6">{bike.name}</Typography>
+          <Typography variant="subtitle1">{bike.distance}</Typography>
         </HorizontalGroup>
-        <Text>{bike.address}</Text>
+        <Typography>{bike.address}</Typography>
         <Text type="caption">{bike.timeAgo}</Text>
       </VerticalGroup>
       <IconButton color="primary" onClick={navigateBike}>

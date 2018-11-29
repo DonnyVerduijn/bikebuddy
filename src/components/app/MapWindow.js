@@ -4,6 +4,7 @@ import { StyleSheet, css } from 'aphrodite/no-important';
 import Window from '../common/Window';
 import MapContainer from '../containers/MapContainer';
 import MapNavigationContainer from '../containers/MapNavigationContainer';
+import SideNavigationMenuContainer from './../containers/SideNavigationMenuContainer';
 
 const styles = StyleSheet.create({
   Map: {
@@ -15,23 +16,25 @@ const styles = StyleSheet.create({
   },
 });
 
-class MapWindow extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
+const MapWindow = props => {
+  return (
+    <>
+      <SideNavigationMenuContainer
+        isMenuOpen={props.isMenuOpen}
+        closeMenu={props.closeMenu}
+      />
       <Window className={css(styles.Window)}>
-        <MapNavigationContainer/>
+        <MapNavigationContainer onLeftIconClick={props.openMenu}/>
         <MapContainer />
       </Window>
-    );
-  }
-}
+    </>
+  );
+};
 
 MapWindow.propTypes = {
   match: PropTypes.object,
+  isMenuOpen: PropTypes.bool,
+  closeMenu: PropTypes.func,
 };
 
 export default MapWindow;

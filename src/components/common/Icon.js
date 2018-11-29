@@ -12,7 +12,7 @@ import backIcon from '@material-ui/icons/ArrowBackRounded';
 import settingsIcon from '@material-ui/icons/SettingsRounded';
 import storageIcon from '@material-ui/icons/LocalParkingRounded';
 import aboutIcon from '@material-ui/icons/InfoRounded';
-
+import historyIcon from '@material-ui/icons/HistoryRounded';
 
 const getIcon = type => {
   switch (type) {
@@ -40,6 +40,8 @@ const getIcon = type => {
       return storageIcon;
     case 'about':
       return aboutIcon;
+    case 'history':
+      return historyIcon;
     default:
       return checkmarkIcon;
   }

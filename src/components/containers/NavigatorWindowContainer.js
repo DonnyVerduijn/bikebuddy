@@ -3,10 +3,13 @@ import { connect } from 'react-redux';
 import geoService from './../../util/GeoService';
 import NavigatorWindow from './../app/NavigatorWindow';
 import bikeSelectors from './../../selectors/BikeSelectors';
+import bikeActions from './../../actions/BikeActions';
 import PropTypes from 'prop-types';
 import locationSelectors from './../../selectors/LocationSelectors';
 import MagneticSensor from './../../util/MagneticSensor';
 import PositionSensor from './../../util/PositionSensor';
+import { compose, withHandlers } from 'recompose';
+import { withRouter } from 'react-router-dom';
 
 const convertOrientation = orientation => {
   return 360 - orientation - 180;
@@ -20,6 +23,21 @@ const mapStateToProps = (state, ownProps) => {
     bikeLocation: locationSelectors.getById(bike.locationIds[0]),
   };
 };
+
+const mapDispatchToProps = (dispatch, { bikeId }) => ({
+  storeBike: () => dispatch(bikeActions.storeBike()),
+  hasFound: () => {
+    dispatch({ type: 'BIKE_FOUND', bikeId });
+  },
+});
+
+const attachHandlers = compose(
+  withHandlers({
+    showBikeList: ({ history }) => () => {
+      history.push('/');
+    },
+  }),
+);
 
 class NavigatorWindowContainer extends Component {
   constructor(props) {
@@ -74,4 +92,9 @@ NavigatorWindowContainer.propTypes = {
   bikeLocation: PropTypes.string,
 };
 
-export default connect(mapStateToProps)(NavigatorWindowContainer);
+export default withRouter(attachHandlers(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(NavigatorWindowContainer),
+));

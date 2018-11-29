@@ -1,3 +1,5 @@
+import CordovaEvents from './CordovaEvents';
+
 const defaults = {
   maximumAge: 1000,
   timeout: 5000,
@@ -8,28 +10,36 @@ const defaults = {
 };
 
 const PositionSensor = () => {
-  // eslint-disable-next-line
-  const api = cordova.plugins.locationServices.geolocation;
+  let api,
+    isReady = false;
+
+  const init = () => {
+    isReady = true;
+    // eslint-disable-next-line
+    api = cordova.plugins.locationServices.geolocation;
+  };
   const listeners = {};
 
   // store listener into listener dictionary
   const listen = (callback, options, onError) => {
-    const id = api.watchPosition(
-      callback,
-      onError,
-      Object.assign({}, defaults, options),
-    );
+    const id =
+      isReady &&
+      api.watchPosition(
+        callback,
+        onError,
+        Object.assign({}, defaults, options),
+      );
     listeners[id] = callback;
     return id;
   };
 
   const unlisten = id => {
-    api.clearWatch(id);
+    isReady && api.clearWatch(id);
   };
 
   const getPosition = options => {
     return new Promise((resolve, reject) => {
-      api.getCurrentPosition(
+      isReady && api.getCurrentPosition(
         resolve,
         reject,
         Object.assign({}, defaults, options),
@@ -38,6 +48,7 @@ const PositionSensor = () => {
   };
 
   return {
+    init,
     listen,
     unlisten,
     getPosition,
@@ -45,4 +56,5 @@ const PositionSensor = () => {
 };
 
 const singleton = PositionSensor();
+CordovaEvents.onDeviceReady(singleton.init);
 export default singleton;

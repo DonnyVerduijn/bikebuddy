@@ -75,6 +75,11 @@
         <variable name="PLAY_SERVICES_VERSION" value="15.0.1" />
         <variable name="ANDROID_SUPPORT_V4_VERSION" value="27.+" />
     </plugin>
+    <plugin name="cordova-background-geolocation-lt" spec="^2.14.2">
+        <variable name="LICENSE" value="YOUR_LICENSE_KEY" />
+        <variable name="GOOGLE_API_VERSION" value="16.0.0" />
+        <variable name="APPCOMPAT_VERSION" value="27.1.1" />
+    </plugin>
     <engine name="android" spec="^7.1.1" />
     <engine name="browser" spec="^5.0.4" />
 </widget>

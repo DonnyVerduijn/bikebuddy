@@ -4,9 +4,15 @@ const defaults = {
   element: document.body,
   camera: {
     target: { lat: 51, lng: 4 },
-    zoom: 10,
+    zoom: 15,
     tilt: 0,
     bearing: 0,
+  },
+  gestures: {
+    scroll: false,
+    tilt: false,
+    rotate: false,
+    zoom: false,
   },
   style: mapStyle,
   background: 'rgb(0,0,0)',
@@ -21,6 +27,8 @@ const NativeGoogleMap = options => {
     styles: config.style,
     camera: config.camera,
   });
+
+  map.setAllGesturesEnabled(false);
 
   api.environment.setBackgroundColor(config.background);
 
@@ -49,7 +57,7 @@ const NativeGoogleMap = options => {
   };
 
   const onCameraMoveEnd = callback => {
-    map.on(api.event.CAMERA_MOVE_END, callback); 
+    map.on(api.event.CAMERA_MOVE_END, callback);
   };
 
   const onCameraMove = callback => {

@@ -6,26 +6,26 @@ import AppBar from '../AppBar';
 const enhance = compose(
   withProps(props => ({
     ...props,
-    title: 'Storages',
-    leftIcon: 'back',
-    rightIcon: 'addLocation',
+    title: 'BikeBuddy',
+    leftIcon: 'menu',
+    // rightIcon: 'addLocation',
   })),
   withHandlers({
-    leftIconHandler: ({ history }) => () => {
-      history.goBack();
+    leftIconHandler: ({ onLeftIconClick }) => () => {
+      onLeftIconClick();
     },
   }),
 );
 
-const mapDispatchToProps = (dispatch) => ({
-    rightIconHandler: () => dispatch({ type: 'STORAGE_ADD' })
-});
+// const mapDispatchToProps = (dispatch) => ({
+//     rightIconHandler: () => dispatch({ type: 'STORAGE_ADD' })
+// });
 
 export default withRouter(
   enhance(
     connect(
       null,
-      mapDispatchToProps,
+      null,// mapDispatchToProps,
     )(AppBar),
   ),
 );
