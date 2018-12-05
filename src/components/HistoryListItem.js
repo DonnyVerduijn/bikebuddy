@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, css } from 'aphrodite/no-important';
 import IconButton from '@material-ui/core/IconButton';
@@ -27,7 +27,7 @@ const style = {
 };
 
 const styles = StyleSheet.create({
-  BikeListItem: {
+  HistoryListItem: {
     listStyleType: 'none',
     color: 'rgb(35,41,32)',
     borderStyle: 'solid',
@@ -41,34 +41,37 @@ const styles = StyleSheet.create({
   },
 });
 
-const BikeListItem = ({ bike, showBike, navigateBike }) => {
-  return (
-    <li className={css(styles.BikeListItem)}>
-      <Icon
-        type="bike"
-        size={style.BikeIcon.width}
-        color={style.BikeIcon.fill}
-        margin={style.BikeIcon.margin}
-      />
-      <VerticalGroup grow={true} onClick={showBike}>
-        <HorizontalGroup margin="0 0 .25em 0">
-          <Typography variant="h6">{bike.name}</Typography>
-          <Typography variant="subtitle1">{bike.distance}</Typography>
-        </HorizontalGroup>
-        <Typography>{bike.address}</Typography>
-        <Text type="caption">{bike.timeAgo}</Text>
-      </VerticalGroup>
-      <IconButton color="primary" onClick={navigateBike}>
-        <Icon type="navigate" fontSize="large" />
-      </IconButton>
-    </li>
-  );
-};
+class HistoryListItem extends Component {
+  render() {
+    const { bike, showBike, navigateBike } = this.props;
+    return (
+      <li className={css(styles.HistoryListItem)}>
+        <Icon
+          type="bike"
+          size={style.BikeIcon.width}
+          color={style.BikeIcon.fill}
+          margin={style.BikeIcon.margin}
+        />
+        <VerticalGroup grow={true} onClick={showBike}>
+          <HorizontalGroup margin="0 0 .25em 0">
+            <Typography variant="h6">{bike.name}</Typography>
+            <Typography variant="subtitle1">{bike.distance}</Typography>
+          </HorizontalGroup>
+          <Typography>{bike.address}</Typography>
+          <Text type="caption">{bike.timeAgo}</Text>
+        </VerticalGroup>
+        <IconButton color="primary" onClick={navigateBike}>
+          <Icon type="navigate" fontSize="large" />
+        </IconButton>
+      </li>
+    );
+  }
+}
 
-BikeListItem.propTypes = {
+HistoryListItem.propTypes = {
   bike: PropTypes.object,
   showBike: PropTypes.func,
   navigateBike: PropTypes.func,
 };
 
-export default BikeListItem;
+export default HistoryListItem;

@@ -3,18 +3,18 @@ import { HashRouter } from 'react-router-dom';
 import { Switch, Route } from 'react-router';
 
 import NavigatorWindowContainer from './../containers/NavigatorWindowContainer';
-import BikeListWindowContainer from './../containers/BikeListWindowContainer';
+import HistoryWindowContainer from '../containers/HistoryWindowContainer';
 import NoMatchWindow from './NoMatchWindow';
-import MapWindowContainer from './../containers/MapWindowContainer';
+import FinderWindowContainer from '../containers/FinderWindowContainer';
 import SettingsWindow from './SettingsWindow';
 import AboutWindow from './AboutWindow';
 
 const App = () => {
   return <HashRouter>
     <Switch>
-      <Route path="/" exact component={MapWindowContainer} />
-      <Route path="/bikes" component={BikeListWindowContainer} />
-      <Route path="/bike/navigator/:id" component={NavigatorWindowContainer} />
+      <Route path="/" exact component={FinderWindowContainer} />
+      <Route path="/history" component={HistoryWindowContainer} />
+      <Route path="/navigator/:id" component={NavigatorWindowContainer} />
       <Route path="/settings" component={SettingsWindow}/>
       <Route path="/about" component={AboutWindow}/>
       <Route component={NoMatchWindow} />

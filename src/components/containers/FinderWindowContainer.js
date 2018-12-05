@@ -1,16 +1,7 @@
 import { compose, withState, withHandlers } from 'recompose';
-// import { connect } from 'react-redux';
-import MapWindow from '../app/MapWindow';
-
-// const mapStateToProps = () => {
-//   return {
-    
-//   };
-// };
-
-// const mapDispatchToProps = () => {
-//   return {};
-// };
+import FinderWindow from '../app/FinderWindow';
+import { connect } from 'react-redux';
+import bikeActions from '../../actions/BikeActions';
 
 const attachHandlers = compose(
   withState('isMenuOpen', 'setIsMenuOpen', false),
@@ -24,4 +15,15 @@ const attachHandlers = compose(
   }),
 );
 
-export default attachHandlers(MapWindow);
+const mapDispatchToProps = dispatch => {
+  return {
+    storeBike: () => dispatch(bikeActions.storeBike()),
+  };
+};
+
+export default attachHandlers(
+  connect(
+    null,
+    mapDispatchToProps,
+  )(FinderWindow),
+);

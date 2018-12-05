@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Window from '../common/Window';
-import AboutNavigationContainer from './../containers/AboutNavigationContainer';
+import AboutNavigationContainer from '../containers/AboutAppBar';
 
 const AboutWindow = () => {
   return (

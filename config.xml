@@ -80,6 +80,6 @@
         <variable name="GOOGLE_API_VERSION" value="16.0.0" />
         <variable name="APPCOMPAT_VERSION" value="27.1.1" />
     </plugin>
-    <engine name="android" spec="^7.1.1" />
+    <engine name="android" spec="^7.1.4" />
     <engine name="browser" spec="^5.0.4" />
 </widget>

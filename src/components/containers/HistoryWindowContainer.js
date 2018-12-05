@@ -1,4 +1,4 @@
-import BikeListWindow from './../app/BikeListWindow';
+import HistoryWindow from '../app/HistoryWindow';
 import { connect } from 'react-redux';
 import bikeActions from '../../actions/BikeActions';
 
@@ -11,4 +11,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   null,
   mapDispatchToProps,
-)(BikeListWindow);
+)(HistoryWindow);

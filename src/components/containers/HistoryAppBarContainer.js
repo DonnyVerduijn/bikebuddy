@@ -5,17 +5,17 @@ import AppBar from '../AppBar';
 const enhance = compose(
   withProps(props => ({
     ...props,
-    title: 'bikelist',
-    leftIcon: 'menu',
-    rightIcon: 'settings',
+    title: 'History',
+    leftIcon: 'back',
+    rightIcon: null,
   })),
   withHandlers({
-    leftIconHandler: ({ onMenuIconClick }) => () => {
-      onMenuIconClick();
+    leftIconHandler: ({ history }) => () => {
+      history.goBack();
     },
-    rightIconHandler: ({ history }) => () => {
-      history.push('/settings');
-    },
+    // rightIconHandler: ({ history }) => () => {
+    //   history.push('/settings');
+    // },
   }),
 );
 

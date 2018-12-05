@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
 import { compose, withHandlers } from 'recompose';
 import { withRouter } from 'react-router-dom';
-import BikeList from './../BikeList';
-import bikeSelectors from './../../selectors/BikeSelectors';
+import HistoryList from '../HistoryList';
+import bikeSelectors from '../../selectors/BikeSelectors';
 
 const mapStateToProps = (state) => {
   return {
@@ -12,13 +12,10 @@ const mapStateToProps = (state) => {
 
 const attachHandlers = compose(
   withHandlers({
-    showBike: ({ history }) => bikeId => {
-      history.push(`/bike/${bikeId}`);
-    },
     navigateBike: ({ history }) => bikeId => {
-      history.push(`/bike/navigator/${bikeId}`);
+      history.push(`/navigator/${bikeId}`);
     },
   }),
 );
 
-export default withRouter(attachHandlers(connect(mapStateToProps)(BikeList)));
+export default withRouter(attachHandlers(connect(mapStateToProps)(HistoryList)));

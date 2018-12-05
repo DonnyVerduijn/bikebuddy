@@ -1,4 +1,4 @@
-import SideNavigationMenu from './../SideNavigationMenu';
+import SideNavigationMenu from '../SideNavigationMenu';
 import { compose, withHandlers } from 'recompose';
 import { withRouter } from 'react-router';
 

@@ -1,18 +1,18 @@
 import { connect } from 'react-redux';
 import { compose, withHandlers } from 'recompose';
-import BikeListItem from './../BikeListItem';
-import bikes from './../../selectors/BikeSelectors';
-import locations from './../../selectors/LocationSelectors';
-import globals from './../../selectors/GlobalSelectors';
-import geoService from './../../util/GeoService';
-import distanceFormatter from './../../util/DistanceFormatter';
+import HistoryListItem from '../HistoryListItem';
+import bikes from '../../selectors/BikeSelectors';
+import locations from '../../selectors/LocationSelectors';
+import geoService from '../../util/GeoService';
+import distanceFormatter from '../../util/DistanceFormatter';
 import moment from 'moment';
+import PositionSensor from './../../util/PositionSensor';
 
 const isNearbyTreshold = 10;
 const addressPlaceholder = 'resolving address...';
 
 const mapStateToProps = (state, ownProps) => {
-  const userLocation = globals.getDeviceLocation(state);
+  const userLocation = PositionSensor.getPosition();
   const bike = bikes.getById(state, ownProps.bikeId);
   const bikeLocation = locations.getById(state, bike.locationIds[0]);
   const bikeAddress = 
@@ -51,5 +51,5 @@ export default enhance(
   connect(
     mapStateToProps,
     null,
-  )(BikeListItem),
+  )(HistoryListItem),
 );

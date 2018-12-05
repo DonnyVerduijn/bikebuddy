@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, css } from 'aphrodite/no-important';
-import BikeListItemContainer from './containers/BikeListItemContainer';
+import HistoryListItemContainer from './containers/HistoryListItemContainer';
 
 const styles = StyleSheet.create({
-  BikeList: {
+  HistoryList: {
     display: 'flex',
     flexDirection: 'column',
     padding: 0,
@@ -12,11 +12,11 @@ const styles = StyleSheet.create({
   }
 });
 
-const BikeList = ({ bikeIds, showBike, navigateBike }) => {
+const HistoryList = ({ bikeIds, showBike, navigateBike }) => {
   return (
-    <ul className={css(styles.BikeList)}>
+    <ul className={css(styles.HistoryList)}>
       {bikeIds.map(bikeId => (
-        <BikeListItemContainer
+        <HistoryListItemContainer
           key={bikeId}
           bikeId={bikeId}
           onShowBike={showBike}
@@ -27,10 +27,10 @@ const BikeList = ({ bikeIds, showBike, navigateBike }) => {
   );
 };
 
-BikeList.propTypes = {
+HistoryList.propTypes = {
   bikeIds: PropTypes.arrayOf(PropTypes.string),
   showBike: PropTypes.func,
   navigateBike: PropTypes.func,
 };
 
-export default BikeList;
+export default HistoryList;

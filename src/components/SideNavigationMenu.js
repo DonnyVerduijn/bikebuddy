@@ -18,8 +18,8 @@ const styles = StyleSheet.create({
 });
 
 const menuItems = [
-  { icon: 'history', text: 'Location history', path: '/' },
-  { icon: 'storage', text: 'Storages', path: '/map' },
+  { icon: 'map', text: 'Finder', path: '/' },
+  { icon: 'history', text: 'History', path: '/history' },
   { icon: 'settings', text: 'Settings', path: '/settings' },
   { icon: 'about', text: 'About', path: '/about' },
 ];

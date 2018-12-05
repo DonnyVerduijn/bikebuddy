@@ -1,1 +1,1 @@
-{"plugins":["cordova-plugin-whitelist","cordova-plugin-webpack","cordova-plugin-locationservices","cordova-plugin-googlemaps"]}
+{"plugins":["cordova-plugin-whitelist","cordova-plugin-webpack","cordova-plugin-locationservices","cordova-plugin-googlemaps","cordova-background-geolocation-lt","cordova-plugin-background-fetch"]}
