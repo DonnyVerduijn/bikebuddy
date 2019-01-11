@@ -71,15 +71,6 @@ class GoogleMap extends Component {
       element: this.mapElement,
       camera: this.state,
     });
-
-    // this.map.onCameraMove(() => {
-    //   console.log('camera moved', this.map.getCameraPosition());
-    //   this.setState({ target: this.map.getCameraPosition().target });
-    // });
-
-    // this.map.onCameraMoveEnd(() => {
-    //   console.log('cameraMoveEnd', this.map.getCameraPosition());
-    // });
   }
 
   // when the state or props have changed
