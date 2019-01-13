@@ -6,8 +6,10 @@ import LocalStorage from './util/LocalStorage';
 import userActions from './actions/UserActions';
 import globalSelectors from './selectors/GlobalSelectors';
 import globalActions from './actions/GlobalActions';
+import coordinateActions from './actions/CoordinateActions';
 import BackgroundLocationProvider from './util/BackgroundLocationProvider';
 import CordovaEvents from './util/CordovaEvents';
+import PositionSensor from './util/PositionSensor';
 import uuid from 'uuidv4';
 import App from './components/app/App';
 import './index.css';
@@ -20,6 +22,7 @@ const CordovaApp = () => {
     store = ReduxStore.create();
     const root = document.getElementById('App');
     const localStorage = LocalStorage({ identifier: 'bikebuddy' });
+    const positionSensor = PositionSensor({ interval: 1000 });
 
     // fetch from localStorage
     store.dispatch(
@@ -27,6 +30,11 @@ const CordovaApp = () => {
         payload: localStorage.fetch() || {},
       }),
     );
+
+    // attach callbacks to sensors
+    positionSensor.listen(location => {
+      store.dispatch(coordinateActions.setCoordinate(location));
+    });
 
     // create user if none exists
     const localUserId = globalSelectors.getLocalUserId(store.getState());

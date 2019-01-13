@@ -6,13 +6,13 @@ import locations from '../../selectors/LocationSelectors';
 import geoService from '../../util/GeoService';
 import distanceFormatter from '../../util/DistanceFormatter';
 import moment from 'moment';
-import PositionSensor from './../../util/PositionSensor';
+import coordinateSelectors from './../../selectors/CoordinateSelectors';
 
 const isNearbyTreshold = 10;
 const addressPlaceholder = 'resolving address...';
 
 const mapStateToProps = (state, ownProps) => {
-  const userLocation = PositionSensor.getPosition();
+  const userLocation = coordinateSelectors.getMostRecent(state);
   const bike = bikes.getById(state, ownProps.bikeId);
   const bikeLocation = locations.getById(state, bike.locationIds[0]);
   const bikeAddress = 

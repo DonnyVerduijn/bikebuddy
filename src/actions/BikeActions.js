@@ -1,7 +1,7 @@
 import uuid from 'uuidv4';
 import GMapsAPIService from './../util/GMapsAPIService';
-import PositionSensor from './../util/PositionSensor';
 import globalSelectors from './../selectors/GlobalSelectors';
+import coordinateSelectors from './../selectors/CoordinateSelectors';
 
 export default {
   storeBike() {
@@ -11,7 +11,7 @@ export default {
       const state = getState();
       const createdAt = Date.now();
       const userId = globalSelectors.getLocalUserId(state);
-      const deviceLocation = PositionSensor.getPosition();
+      const deviceLocation = coordinateSelectors.getMostRecent(state);
       
       dispatch({
         type: 'BIKE_ADD',

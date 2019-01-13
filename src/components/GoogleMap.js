@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { StyleSheet, css } from 'aphrodite/no-important';
 import NativeGoogleMap from './../util/NativeGoogleMap';
 import MagneticSensor from './../util/MagneticSensor';
-import PositionSensor from './../util/PositionSensor';
 import clamp from 'lodash.clamp';
 
 const styles = StyleSheet.create({
@@ -48,22 +47,11 @@ class GoogleMap extends Component {
     };
 
     // update the postiion from the device location
-    const updatePosition = position => {
-      this.setState({
-        target: {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        },
-      });
-    };
 
+
+    
     // attach listeners to sensor api
     this.magneticSensor = MagneticSensor.listen(updateOrientation);
-    this.positionSensor = PositionSensor.getPosition()
-      .then(updatePosition)
-      .catch(() => {
-        console.log('no position available');
-      });
   }
 
   componentDidMount() {
@@ -81,6 +69,15 @@ class GoogleMap extends Component {
       tilt: this.state.tilt,
       bearing: this.state.bearing,
     });
+
+    if(this.props.position !== previousProps.position) {
+      this.setState({
+        target: {
+          lat: this.props.position.lat,
+          lng: this.props.position.lng,
+        },
+      });
+    }
 
     if (this.props.storages === previousProps.storages) {
       this.props.storages.forEach(storage => {
@@ -109,7 +106,7 @@ class GoogleMap extends Component {
 }
 
 GoogleMap.propTypes = {
-  mapPosition: PropTypes.object,
+  position: PropTypes.object,
   storages: PropTypes.array,
   fetchStorages: PropTypes.func,
 };

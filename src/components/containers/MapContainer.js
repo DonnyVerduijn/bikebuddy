@@ -2,9 +2,11 @@ import { connect } from 'react-redux';
 import GoogleMap from '../GoogleMap';
 import storages from '../../selectors/StorageSelectors';
 import storageActions from './../../actions/StorageActions';
+import CoordinateSelectors from '../../selectors/CoordinateSelectors';
 
 const mapStateToProps = state => ({
-    storages: storages.getAll(state)
+    storages: storages.getAll(state),
+    position: CoordinateSelectors.getMostRecent(state)
 });
 
 const mapDispatchToProps = dispatch => ({

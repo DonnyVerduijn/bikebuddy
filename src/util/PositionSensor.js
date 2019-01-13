@@ -23,12 +23,12 @@ const PositionSensor = () => {
   // store listener into listener dictionary
   const listen = (callback, options, onError) => {
     const id =
-      isReady &&
+      isReady ?
       api.watchPosition(
         callback,
-        onError,
+        onError && new Error('position data not available'),
         Object.assign({}, defaults, options),
-      );
+      ) : null;
     listeners[id] = callback;
     return id;
   };
