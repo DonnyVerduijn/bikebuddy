@@ -22,7 +22,6 @@ const CordovaApp = () => {
     store = ReduxStore.create();
     const root = document.getElementById('App');
     const localStorage = LocalStorage({ identifier: 'bikebuddy' });
-    const positionSensor = PositionSensor({ interval: 1000 });
 
     // fetch from localStorage
     store.dispatch(
@@ -32,7 +31,7 @@ const CordovaApp = () => {
     );
 
     // attach callbacks to sensors
-    positionSensor.listen(location => {
+    PositionSensor.listen(location => {
       store.dispatch(coordinateActions.setCoordinate(location));
     });
 

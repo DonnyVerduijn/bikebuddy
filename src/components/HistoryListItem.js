@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, css } from 'aphrodite/no-important';
 import IconButton from '@material-ui/core/IconButton';
@@ -41,9 +41,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class HistoryListItem extends Component {
-  render() {
-    const { bike, showBike, navigateBike } = this.props;
+const HistoryListItem = ({ bike, showBike, navigateBike }) => {
     return (
       <li className={css(styles.HistoryListItem)}>
         <Icon
@@ -65,8 +63,7 @@ class HistoryListItem extends Component {
         </IconButton>
       </li>
     );
-  }
-}
+};
 
 HistoryListItem.propTypes = {
   bike: PropTypes.object,

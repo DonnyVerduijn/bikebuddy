@@ -1,27 +1,24 @@
 import geolib from 'geolib';
 
 const parametersAreValid = (a, b) => {
-  return (
-    a &&
-    a.coords &&
-    a.coords.latitude &&
-    a.coords.longitude &&
-    b &&
-    b.coords &&
-    b.coords.latitude &&
-    b.coords.longitude
-  );
+  return a && a.lat && a.lng && b && b.lat && b.lng;
 };
 
 export default {
   getDistance(a, b) {
     return parametersAreValid(a, b)
-      ? geolib.getDistance(a.coords, b.coords)
+      ? geolib.getDistance(
+          { lat: a.lat, lng: a.lng },
+          { lat: b.lat, lng: b.lng },
+        )
       : null;
   },
   getRhumbLineBearing(a, b) {
     return parametersAreValid(a, b)
-      ? geolib.getRhumbLineBearing(a.coords, b.coords)
+      ? geolib.getRhumbLineBearing(
+          { lat: a.lat, lng: a.lng },
+          { lat: b.lat, lng: b.lng },
+        )
       : null;
   },
 };

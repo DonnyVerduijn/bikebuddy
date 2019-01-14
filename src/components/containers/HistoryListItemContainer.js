@@ -2,7 +2,6 @@ import { connect } from 'react-redux';
 import { compose, withHandlers } from 'recompose';
 import HistoryListItem from '../HistoryListItem';
 import bikes from '../../selectors/BikeSelectors';
-import locations from '../../selectors/LocationSelectors';
 import geoService from '../../util/GeoService';
 import distanceFormatter from '../../util/DistanceFormatter';
 import moment from 'moment';
@@ -14,7 +13,7 @@ const addressPlaceholder = 'resolving address...';
 const mapStateToProps = (state, ownProps) => {
   const userLocation = coordinateSelectors.getMostRecent(state);
   const bike = bikes.getById(state, ownProps.bikeId);
-  const bikeLocation = locations.getById(state, bike.locationIds[0]);
+  const bikeLocation = coordinateSelectors.getById(state, bike.locationIds[0]);
   const bikeAddress = 
     bikeLocation && bikeLocation.address
       ? bikeLocation.address
@@ -23,7 +22,7 @@ const mapStateToProps = (state, ownProps) => {
     geoService.getDistance(userLocation, bikeLocation),
   );
   const isNearby = distance && distance < isNearbyTreshold ? true : false;
-  const timeAgo = bikeLocation ? moment(bikeLocation.timestamp).fromNow() : '';
+  const timeAgo = moment(bikeLocation.createdAt).fromNow();
 
   return {
     bike: {

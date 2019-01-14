@@ -8,7 +8,7 @@ const BikeReducer = (state = {}, action) => {
       return {
         ...state,
         [action.bikeId]: {
-          locationIds: [],
+          locationIds: action.locationIds,
           name: action.name,
           bikeFound: false,
         },
