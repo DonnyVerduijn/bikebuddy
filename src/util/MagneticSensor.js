@@ -1,7 +1,5 @@
-import uuid from 'uuidv4';
 
 const MagneticSensor = () => {
-  const listeners = {};
 
   class DeviceOrientation {
     constructor(event) {
@@ -13,18 +11,15 @@ const MagneticSensor = () => {
   }
 
   const listen = callback => {
-    const id = uuid();
-    listeners[id] = callback;
-    window.addEventListener(
+    return window.addEventListener(
       'deviceorientation',
-      event => listeners[id](new DeviceOrientation(event)),
+      event => callback(new DeviceOrientation(event)),
       true,
     );
-    return id;
   };
 
-  const unlisten = id => {
-    window.removeEventListener('deviceorientation', listeners[id]);
+  const unlisten = event => {
+    window.removeEventListener('deviceorientation', event);
   };
 
   return {

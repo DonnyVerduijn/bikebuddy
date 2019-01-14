@@ -5,9 +5,8 @@ import NavigatorWindow from './../app/NavigatorWindow';
 import bikeSelectors from './../../selectors/BikeSelectors';
 import bikeActions from './../../actions/BikeActions';
 import PropTypes from 'prop-types';
-import locationSelectors from './../../selectors/LocationSelectors';
+import CoordinateSelectors from './../../selectors/CoordinateSelectors';
 import MagneticSensor from './../../util/MagneticSensor';
-import PositionSensor from './../../util/PositionSensor';
 import { compose, withHandlers } from 'recompose';
 import { withRouter } from 'react-router-dom';
 
@@ -17,10 +16,12 @@ const convertOrientation = orientation => {
 
 const mapStateToProps = (state, ownProps) => {
   const bike = bikeSelectors.getById(state, ownProps.match.params.id);
+  const bikeLocation = CoordinateSelectors.getById(state, bike.locationIds[0]);
 
   return {
     bikeId: ownProps.match.params.id,
-    bikeLocation: locationSelectors.getById(bike.locationIds[0]),
+    bikeLocation,
+    position: CoordinateSelectors.getMostRecent(state),
   };
 };
 
@@ -46,34 +47,28 @@ class NavigatorWindowContainer extends Component {
   }
 
   componentDidMount() {
-    let position = null;
-
-    const setDirection = orientation => {
-      const direction = position
-        ? convertOrientation(
-            geoService.getRhumbLineBearing(position, this.props.bikeLocation) -
-              orientation.alpha -
-              window.orientation,
-          )
-        : 0;
-      this.setState({ direction });
-    };
-
-    const setDistance = position => {
-      const distance = geoService.getDistance(
-        position,
-        this.props.bikeLocation,
+    this.magneticSensorEvent = MagneticSensor.listen(orientation => {
+      const { position, bikeLocation } = this.props;
+      const direction = convertOrientation(
+        geoService.getRhumbLineBearing(position, bikeLocation) -
+          orientation.alpha -
+          window.orientation,
       );
-      this.setState({ distance });
-    };
+      console.log(direction);
+      this.setState({ direction });
+    });
+  }
 
-    this.positionSensor = PositionSensor.listen(setDistance);
-    this.magneticSensor = MagneticSensor.listen(setDirection);
+  componentDidUpdate(previousProps) {
+    if (this.props.position !== previousProps.position) {
+      const { position, bikeLocation } = this.props;
+      const distance = geoService.getDistance(position, bikeLocation);
+      this.setState({ distance });
+    }
   }
 
   componentWillUnmount() {
-    PositionSensor.unlisten(this.positionSensor);
-    MagneticSensor.unlisten(this.magneticSensor);
+    MagneticSensor.unlisten(this.magneticSensorEvent);
   }
 
   render() {
@@ -88,13 +83,16 @@ class NavigatorWindowContainer extends Component {
 }
 
 NavigatorWindowContainer.propTypes = {
+  position: PropTypes.object,
   bikeId: PropTypes.string,
-  bikeLocation: PropTypes.string,
+  bikeLocation: PropTypes.object,
 };
 
-export default withRouter(attachHandlers(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps,
-  )(NavigatorWindowContainer),
-));
+export default withRouter(
+  attachHandlers(
+    connect(
+      mapStateToProps,
+      mapDispatchToProps,
+    )(NavigatorWindowContainer),
+  ),
+);

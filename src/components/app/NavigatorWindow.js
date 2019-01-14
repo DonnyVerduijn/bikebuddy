@@ -68,7 +68,7 @@ const NavigatorWindow = ({ direction, distance, showBikeList, hasFound }) => {
 };
 
 NavigatorWindow.propTypes = {
-  bikeId: PropTypes.number,
+  bikeId: PropTypes.string,
   direction: PropTypes.number,
   distance: PropTypes.number,
   showBikeList: PropTypes.func,

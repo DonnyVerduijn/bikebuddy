@@ -37,27 +37,20 @@ class GoogleMap extends Component {
       tilt: 0,
       bearing: 0,
     };
-
-    // update the tilt and bearing from the orientation
-    const updateOrientation = orientation => {
-      this.setState({
-        tilt: orientationToTilt(orientation),
-        bearing: orientationToBearing(orientation),
-      });
-    };
-
-    // update the postiion from the device location
-
-
-    
-    // attach listeners to sensor api
-    this.magneticSensor = MagneticSensor.listen(updateOrientation);
   }
 
   componentDidMount() {
     this.map = NativeGoogleMap({
       element: this.mapElement,
       camera: this.state,
+    });
+
+    // attach listeners to sensor api
+    this.magneticSensorEvent = MagneticSensor.listen(orientation => {
+      this.setState({
+        tilt: orientationToTilt(orientation),
+        bearing: orientationToBearing(orientation),
+      });
     });
   }
 
@@ -70,7 +63,7 @@ class GoogleMap extends Component {
       bearing: this.state.bearing,
     });
 
-    if(this.props.position !== previousProps.position) {
+    if (this.props.position !== previousProps.position) {
       this.setState({
         target: {
           lat: this.props.position.lat,
@@ -91,6 +84,7 @@ class GoogleMap extends Component {
   }
 
   componentWillUnmount() {
+    MagneticSensor.unlisten(this.magneticSensorEvent);
     this.map.remove();
   }
 
