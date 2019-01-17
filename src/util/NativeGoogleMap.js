@@ -42,6 +42,12 @@ const NativeGoogleMap = options => {
     );
   };
 
+  const addCircle = options => {
+    map.addCircle(options, (circle) => {
+      circle.on(api.event.CIRCLE_CLICK, () => options.onClick(circle));
+    });
+  };
+
   const getCameraTarget = () => {
     return map.getCameraTarget();
   };
@@ -72,6 +78,7 @@ const NativeGoogleMap = options => {
     moveCamera,
     animateCamera,
     addMarker,
+    addCircle,
     onMapReady,
     onCameraMoveEnd,
     onCameraMove,
