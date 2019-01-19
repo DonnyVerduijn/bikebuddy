@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, css } from 'aphrodite/no-important';
 import NativeGoogleMap from './../util/NativeGoogleMap';
 import MagneticSensor from './../util/MagneticSensor';
 import clamp from 'lodash.clamp';
+
 
 const styles = StyleSheet.create({
   Map: {
@@ -28,7 +29,14 @@ const orientationToBearing = orientation => {
   return 360 - (orientation.alpha - window.orientation) - 180;
 };
 
-class GoogleMap extends Component {
+const currentPositionIndicator = position => ({
+  position,
+  radius: 5,
+  strokeColor: '#3344cc',
+  fillColor: '#3344cc',
+});
+
+class GoogleMap extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -41,9 +49,19 @@ class GoogleMap extends Component {
 
   componentDidMount() {
     this.map = NativeGoogleMap({
-      element: this.mapElement,
-      camera: this.state,
+      element: this.mapCanvas,
+      camera: {
+        target: this.state.target,
+        zoom: this.state.zoom,
+        tilt: this.state.tilt,
+        bearing: this.state.bearing,
+      },
     });
+
+    // this.map.onMapReady(() => this.props.onMapReady(this.map));
+    this.map.onMapReady(this.props.onMapReady(this.map));
+
+    this.map.addCircle(currentPositionIndicator(this.state.target));
 
     // attach listeners to sensor api
     this.magneticSensorEvent = MagneticSensor.listen(orientation => {
@@ -54,9 +72,8 @@ class GoogleMap extends Component {
     });
   }
 
-  // when the state or props have changed
   componentDidUpdate(previousProps) {
-    // update tilt and bearing
+    // update tilt and bearing on state change
     this.map.moveCamera({
       target: this.state.target,
       tilt: this.state.tilt,
@@ -71,16 +88,14 @@ class GoogleMap extends Component {
         },
       });
     }
-
-    if (this.props.storages === previousProps.storages) {
-      this.props.storages.forEach(storage => {
-        this.map.addMarker({
-          position: storage.geometry.location,
-          title: storage.name,
-          snippet: storage.vicinity,
-        });
-      });
-    }
+  // if (this.props.storages === previousProps.storages) {
+  //   this.props.storages.forEach(storage => {
+  //     this.map.addMarker({
+  //       position: storage.geometry.location,
+  //       title: storage.name,
+  //       snippet: storage.vicinity,
+  //     });
+  //   });
   }
 
   componentWillUnmount() {
@@ -93,13 +108,14 @@ class GoogleMap extends Component {
       <div
         style={{ width: '100%', height: '100%' }}
         className={css(styles.Map)}
-        ref={ref => (this.mapElement = ref)}
+        ref={ref => (this.mapCanvas = ref)}
       />
     );
   }
 }
 
 GoogleMap.propTypes = {
+  onMapReady: PropTypes.func,
   position: PropTypes.object,
   storages: PropTypes.array,
   fetchStorages: PropTypes.func,

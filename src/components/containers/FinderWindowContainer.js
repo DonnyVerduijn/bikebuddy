@@ -1,7 +1,21 @@
+import { connect } from 'react-redux';
+import storages from '../../selectors/StorageSelectors';
+import storageActions from './../../actions/StorageActions';
+import CoordinateSelectors from '../../selectors/CoordinateSelectors';
 import { compose, withState, withHandlers } from 'recompose';
 import FinderWindow from '../app/FinderWindow';
-import { connect } from 'react-redux';
 import bikeActions from '../../actions/BikeActions';
+
+const mapStateToProps = state => ({
+  storages: storages.getAll(state),
+  position: CoordinateSelectors.getMostRecent(state),
+});
+
+const mapDispatchToProps = dispatch => ({
+  fetchStorages: coords => dispatch(storageActions.fetchStorages(coords)),
+  // setPosition: () => dispatch(GlobalActions.set)
+  storeBike: () => dispatch(bikeActions.storeBike()),
+});
 
 const attachHandlers = compose(
   withState('isMenuOpen', 'setIsMenuOpen', false),
@@ -15,15 +29,9 @@ const attachHandlers = compose(
   }),
 );
 
-const mapDispatchToProps = dispatch => {
-  return {
-    storeBike: () => dispatch(bikeActions.storeBike()),
-  };
-};
-
 export default attachHandlers(
   connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps,
   )(FinderWindow),
 );

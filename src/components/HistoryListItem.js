@@ -51,15 +51,15 @@ const HistoryListItem = ({ bike, showBike, navigateBike }) => {
           margin={style.BikeIcon.margin}
         />
         <VerticalGroup grow={true} onClick={showBike}>
-          <HorizontalGroup margin="0 0 .25em 0">
-            <Typography variant="h6">{bike.name}</Typography>
-            <Typography variant="subtitle1">{bike.distance}</Typography>
+          <HorizontalGroup>
+            <Typography variant="h5">{bike.name}</Typography>
+            <Typography variant="h5">{' ' + bike.distance}</Typography>
           </HorizontalGroup>
           <Typography>{bike.address}</Typography>
           <Text type="caption">{bike.timeAgo}</Text>
         </VerticalGroup>
         <IconButton color="primary" onClick={navigateBike}>
-          <Icon type="navigate" fontSize="large" />
+          <Icon type="navigation" fontSize="large" />
         </IconButton>
       </li>
     );

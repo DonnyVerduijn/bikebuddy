@@ -34,8 +34,8 @@ const mapDispatchToProps = (dispatch, { bikeId }) => ({
 
 const attachHandlers = compose(
   withHandlers({
-    showBikeList: ({ history }) => () => {
-      history.push('/');
+    goBack: ({ history }) => () => {
+      history.goBack();
     },
   }),
 );
@@ -54,7 +54,6 @@ class NavigatorWindowContainer extends Component {
           orientation.alpha -
           window.orientation,
       );
-      console.log(direction);
       this.setState({ direction });
     });
   }
@@ -74,6 +73,8 @@ class NavigatorWindowContainer extends Component {
   render() {
     return (
       <NavigatorWindow
+        goBack={this.props.goBack}
+        hasFound={this.props.hasFound}
         bikeId={this.props.bikeId}
         distance={this.state.distance}
         direction={this.state.direction}
@@ -86,6 +87,8 @@ NavigatorWindowContainer.propTypes = {
   position: PropTypes.object,
   bikeId: PropTypes.string,
   bikeLocation: PropTypes.object,
+  goBack: PropTypes.func,
+  hasFound: PropTypes.func,
 };
 
 export default withRouter(

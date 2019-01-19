@@ -37,15 +37,13 @@ const NativeGoogleMap = options => {
   };
 
   const addMarker = options => {
-    map.addMarker(options, marker =>
-      marker.on(api.event.MARKER_CLICK, () => options.onClick(marker)),
-    );
+    const marker = map.addMarker(options);  
+    marker.on(api.event.MARKER_CLICK, () => options.onClick(marker));
   };
 
   const addCircle = options => {
-    map.addCircle(options, (circle) => {
-      circle.on(api.event.CIRCLE_CLICK, () => options.onClick(circle));
-    });
+    const circle = map.addCircle(options);
+    circle.on(api.event.CIRCLE_CLICK, () => options.onClick(circle));
   };
 
   const getCameraTarget = () => {

@@ -23,7 +23,7 @@ const getIcon = type => {
       return closeIcon;
     case 'bike':
       return bikeIcon;
-    case 'navigate':
+    case 'navigation':
       return navigationIcon;
     case 'add':
       return addIcon;

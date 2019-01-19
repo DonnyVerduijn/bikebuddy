@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Window from '../common/Window';
 import Button from '@material-ui/core/Button';
 import CloseIcon from '@material-ui/icons/CloseRounded';
-import CheckIcon from '@material-ui/icons/CheckRounded';
+import NavigationIcon from '@material-ui/icons/NavigationRounded';
 import { StyleSheet, css } from 'aphrodite/no-important';
 import Typography from '@material-ui/core/Typography';
 import Icon from './../common/Icon';
@@ -42,7 +42,7 @@ const NavigatorWindow = ({ direction, distance, showBikeList, hasFound }) => {
     <Window>
       <Typography variant="h1">{`${distance}M`}</Typography>
       <div className={css(styles.DirectionArrow)}>
-        <Icon type="arrow" size={style.Icon.width} rotate={direction} />
+        <Icon type="navigation" size={style.Icon.width} rotate={direction} />
       </div>
       <div className={css(styles.ButtonGroup)}>
         <Button
@@ -57,8 +57,8 @@ const NavigatorWindow = ({ direction, distance, showBikeList, hasFound }) => {
           variant="contained"
           color="primary"
           size="large"
-          onClick={() => showBikeList() || hasFound()}
-          icon={<CheckIcon />}
+          onClick={() => hasFound()}
+          icon={<NavigationIcon />}
         >
           Done
         </Button>
